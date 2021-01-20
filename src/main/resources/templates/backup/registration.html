@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <link rel="stylesheet" type="text/css"
-          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+          th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
 
     <title>Registration</title>
 </head>
@@ -40,7 +40,7 @@
             </div>
 
             <h1>Registration</h1>
-            <form th:action="@{/registration}" th:object="${StockUserRegistrationDTO}" method="post">
+            <form th:action="@{/registration}" th:object="${user}" method="post">
 
                 <p class="error-message" th:if="${#fields.hasGlobalErrors()}"
                    th:each="error : ${#fields.errors('global')}" th:text="${error}">Validation
@@ -88,16 +88,6 @@
                        th:each="error : ${#fields.errors('confirmPassword')}"
                        th:text="${error}">Validation error</p>
                 </div>
-                <div class="form-group"
-                     th:classappend="${#fields.hasErrors('terms')}? 'has-error':''">
-                    <input id="terms" type="checkbox" th:field="*{terms}" />   <label
-                        class="control-label" for="terms"> I agree with the <a
-                        href="#">terms and conditions</a> for Registration.
-                </label>
-                    <p class="error-message"
-                       th:each="error : ${#fields.errors('terms')}" th:text="${error}">Validation
-                        error</p>
-                </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-success">Register</button>
                     <span>Already registered? <a href="/" th:href="@{/login}">Login
@@ -110,8 +100,8 @@
 </div>
 
 <script type="text/javascript"
-        th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+        th:src="@{/webjars/jquery/3.5.1/jquery.min.js/}"></script>
 <script type="text/javascript"
-        th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+        th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
 </body>
 </html>
