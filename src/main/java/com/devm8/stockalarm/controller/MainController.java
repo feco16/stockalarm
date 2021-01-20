@@ -1,7 +1,7 @@
 package com.devm8.stockalarm.controller;
 
 import com.devm8.stockalarm.dto.StockUserRegistrationDTO;
-import com.devm8.stockalarm.model.StockUser;
+import com.devm8.stockalarm.service.StockService;
 import com.devm8.stockalarm.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class MainController {
 
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+
+
     @Autowired
     UserService userService;
 
-     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
-
+    @Autowired
+    StockService stockService;
 
     @GetMapping("/")
     public String root() {
@@ -46,7 +49,8 @@ public class MainController {
     }
 
     @GetMapping("/user")
-    public String userIndex() {
+    public String userIndex(Model model) {
+        model.addAttribute("stocks", stockService.getAllStocks());
         return "user/index";
     }
 }

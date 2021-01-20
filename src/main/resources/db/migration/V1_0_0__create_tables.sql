@@ -15,6 +15,7 @@ CREATE TABLE public.stock_user (
 CREATE TABLE public.stock (
     	stock_id int8 NOT NULL,
     	stock_uuid varchar(255) NOT NULL,
+    	stock_name varchar(255) NOT NULL,
     	symbol varchar(255) NULL,
     	CONSTRAINT stock_pkey PRIMARY KEY (stock_id)
 );
@@ -33,3 +34,17 @@ CREATE TABLE public.alarm (
     	CONSTRAINT alarm_pkey PRIMARY KEY (alarm_id)
 
 );
+
+CREATE SEQUENCE seq_stock_user
+    INCREMENT BY 1
+    MINVALUE 1
+    NO MAXVALUE
+    START WITH 1
+    OWNED BY stock_user.user_id;
+
+CREATE SEQUENCE seq_stock
+    INCREMENT BY 1
+    MINVALUE 1
+    NO MAXVALUE
+    START WITH 1
+    OWNED BY stock.stock_id;

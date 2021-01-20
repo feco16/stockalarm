@@ -5,19 +5,24 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "STOCK")
+@SequenceGenerator(name = "seq_stock", sequenceName = "seq_stock", allocationSize = 1)
 public class Stock {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_stock")
     @Column(name = "STOCK_ID")
     private long stockId;
 
     @Column(name = "STOCK_UUID")
     private String stockUUID;
+
+    @Column(name = "STOCK_NAME")
+    private String stockName;
 
     @Column(name = "SYMBOL")
     private String symbol;
@@ -38,6 +43,14 @@ public class Stock {
         this.stockUUID = stockUUID;
     }
 
+    public String getStockName() {
+        return stockName;
+    }
+
+    public void setStockName(String stockName) {
+        this.stockName = stockName;
+    }
+
     public String getSymbol() {
         return symbol;
     }
@@ -51,6 +64,7 @@ public class Stock {
         return "Stock{" +
                 "stockId=" + stockId +
                 ", stockUUID='" + stockUUID + '\'' +
+                ", stockName='" + stockName + '\'' +
                 ", symbol='" + symbol + '\'' +
                 '}';
     }

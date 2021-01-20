@@ -2,14 +2,16 @@ package com.devm8.stockalarm.converter;
 
 import com.devm8.stockalarm.dto.StockUserRegistrationDTO;
 import com.devm8.stockalarm.model.StockUser;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Component
-public class StockUserConverter {
+public class StockUserConverter implements Converter<StockUserRegistrationDTO, StockUser> {
 
+    @Override
     public StockUser convert(StockUserRegistrationDTO source) {
         StockUser stockUser = new StockUser();
         stockUser.setUserUUID(UUID.randomUUID().toString());
