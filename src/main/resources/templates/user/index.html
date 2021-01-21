@@ -8,6 +8,7 @@
 <body>
 <!--<span th:text="${#request.userPrincipal.principal.username}"></span>-->
 <a th:href="@{/user/alarms}">Alarms</a>
+<a th:href="@{/user}">Refresh</a>
 
 <form  th:action="@{/user/stock}" th:method="post">
     <lable>Stock Name</lable>
@@ -25,6 +26,7 @@
     <tr>
         <th> Name </th>
         <th> Symbol </th>
+        <th> Current Price </th>
     </tr>
     </thead>
     <tbody>
@@ -34,7 +36,7 @@
     <tr th:each="stock : ${stocks}">
         <td><span th:text="${stock.stockName}"> Name </span></td>
         <td><span th:text="${stock.symbol}"> Symbol </span></td>
-        <td><span th:text="${stock.price}"> Symbol </span></td>
+        <td><span th:text="${#numbers.formatDecimal(stock.currentPrice, 1, 4)}"> Current Price </span></td>
     </tr>
     </tbody>
 </table>

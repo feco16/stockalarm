@@ -1,8 +1,8 @@
 package com.devm8.stockalarm.unit;
 
 import com.devm8.stockalarm.StockalarmApplication;
-import com.devm8.stockalarm.client.impl.ClientAlphavantage;
-import com.devm8.stockalarm.client.impl.ClientMarketstack;
+import com.devm8.stockalarm.clients.stockapi.ClientAlphavantage;
+import com.devm8.stockalarm.clients.stockapi.ClientMarketstack;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

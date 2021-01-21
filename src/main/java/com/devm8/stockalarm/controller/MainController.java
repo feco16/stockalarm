@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.security.Principal;
+
 @Controller
 public class MainController {
 
@@ -69,8 +71,8 @@ public class MainController {
     }
 
     @GetMapping("/user/alarms")
-    public String userAlarms(Model model) {
-        model.addAttribute("alarms", alarmService.getAllStocks());
+    public String userAlarms(Model model, Principal principal) {
+        model.addAttribute("alarms", alarmService.getAlarmsByUser(principal.getName()));
         return "user/alarms";
     }
 

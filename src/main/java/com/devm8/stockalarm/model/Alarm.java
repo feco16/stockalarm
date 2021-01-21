@@ -24,14 +24,17 @@ public class Alarm {
     @Column(name = "ALARM_NAME")
     private String alarmName;
 
-    @Column(name = "CURRENT_PRICE")
-    private long currentPrice;
+    @Column(name = "SAVED_PRICE")
+    private Double savedPrice;
 
-    @Column(name = "PERCENTAGE")
-    private long percentage;
+    @Column(name = "TARGET_PERCENTAGE")
+    private Double targetPercentage;
+
+    @Column(name = "ACTUAL_PERCENTAGE")
+    private Double actualPercentage;
 
     @Column(name = "STATUS")
-    private boolean status;
+    private Boolean status;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -65,27 +68,35 @@ public class Alarm {
         this.alarmName = alarmName;
     }
 
-    public long getCurrentPrice() {
-        return currentPrice;
+    public Double getSavedPrice() {
+        return savedPrice;
     }
 
-    public void setCurrentPrice(long currentPrice) {
-        this.currentPrice = currentPrice;
+    public void setSavedPrice(Double savedPrice) {
+        this.savedPrice = savedPrice;
     }
 
-    public long getPercentage() {
-        return percentage;
+    public Double getTargetPercentage() {
+        return targetPercentage;
     }
 
-    public void setPercentage(long percentage) {
-        this.percentage = percentage;
+    public void setTargetPercentage(Double targetPercentage) {
+        this.targetPercentage = targetPercentage;
     }
 
-    public boolean isStatus() {
+    public Double getActualPercentage() {
+        return actualPercentage;
+    }
+
+    public void setActualPercentage(Double actualPercentage) {
+        this.actualPercentage = actualPercentage;
+    }
+
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

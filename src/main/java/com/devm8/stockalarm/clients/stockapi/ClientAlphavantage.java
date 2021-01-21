@@ -1,9 +1,10 @@
-package com.devm8.stockalarm.client.impl;
+package com.devm8.stockalarm.clients.stockapi;
 
-import com.devm8.stockalarm.client.ClientEnum;
-import com.devm8.stockalarm.client.ClientStrategy;
+import com.devm8.stockalarm.Utils;
 import com.devm8.stockalarm.exception.CustomBadRequestException;
 import org.json.simple.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -16,6 +17,8 @@ public class ClientAlphavantage implements ClientStrategy {
 
     String BASE_URL = "https://www.alphavantage.co/query";
     String API_KEY = "I5TPWWHJJDCQ47IZ";
+
+    private static final Logger logger = LoggerFactory.getLogger(ClientAlphavantage.class);
 
     enum Interval {
         MIN_1("1min");
@@ -43,7 +46,7 @@ public class ClientAlphavantage implements ClientStrategy {
     }
 
     @Override
-    public String getPrice(String symbol) {
+    public Double getPrice(String symbol) {
         JSONObject jsonObject = getWebClient()
                 .get().uri(uriBuilder -> uriBuilder
                         .queryParam("function", "TIME_SERIES_INTRADAY")
@@ -53,7 +56,7 @@ public class ClientAlphavantage implements ClientStrategy {
                         .queryParam("apikey", API_KEY)
                         .build())
                 .retrieve().bodyToMono(JSONObject.class).block();
-        return parseCurrentPrice(jsonObject, Interval.MIN_1);
+        return Utils.formatDouble(parseCurrentPrice(jsonObject, Interval.MIN_1));
 
     }
 
@@ -62,12 +65,19 @@ public class ClientAlphavantage implements ClientStrategy {
         return null;
     }
 
-    private String parseCurrentPrice(JSONObject jsonObject, Interval interval) {
+    private Double parseCurrentPrice(JSONObject jsonObject, Interval interval) {
         if (jsonObject == null) {
             throw new CustomBadRequestException("");
         }
-        return getFirstEntry((HashMap<String, HashMap>) jsonObject.get("Time Series (" + interval.value + ")"))
-                .get(StockPrice.OPEN.value);
+        Double value = 0.;
+        try {
+            value = Double.valueOf(getFirstEntry((HashMap<String, HashMap>) jsonObject.get("Time Series (" + interval.value + ")"))
+                    .get(StockPrice.OPEN.value));
+        } catch (NumberFormatException e) {
+            logger.warn("The stock value for symbol is not a number");
+        }
+
+        return value;
     }
 
     private HashMap<String, String> getFirstEntry(HashMap<String, HashMap> hashMap) {

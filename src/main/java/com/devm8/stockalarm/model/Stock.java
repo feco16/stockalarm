@@ -27,6 +27,9 @@ public class Stock {
     @Column(name = "SYMBOL")
     private String symbol;
 
+    @Column(name = "CURRENT_PRICE")
+    private Double currentPrice;
+
     public long getStockId() {
         return stockId;
     }
@@ -59,6 +62,14 @@ public class Stock {
         this.symbol = symbol;
     }
 
+    public Double getCurrentPrice() {
+        return currentPrice;
+    }
+
+    public void setCurrentPrice(Double currentPrice) {
+        this.currentPrice = currentPrice;
+    }
+
     @Override
     public String toString() {
         return "Stock{" +
@@ -66,6 +77,7 @@ public class Stock {
                 ", stockUUID='" + stockUUID + '\'' +
                 ", stockName='" + stockName + '\'' +
                 ", symbol='" + symbol + '\'' +
+                ", currentPrice=" + currentPrice +
                 '}';
     }
 }

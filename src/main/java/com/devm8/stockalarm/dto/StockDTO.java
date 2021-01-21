@@ -7,7 +7,7 @@ public class StockDTO {
     private String stockUUID;
     private String stockName;
     private String symbol;
-    private String price;
+    private Double currentPrice;
 
     public String getStockUUID() {
         return stockUUID;
@@ -33,11 +33,11 @@ public class StockDTO {
         this.symbol = symbol;
     }
 
-    public String getPrice() {
-        return price;
+    public Double getCurrentPrice() {
+        return currentPrice;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setCurrentPrice(Double currentPrice) {
+        this.currentPrice = currentPrice;
     }
 }

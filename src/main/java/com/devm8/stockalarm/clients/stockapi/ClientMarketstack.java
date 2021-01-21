@@ -1,7 +1,5 @@
-package com.devm8.stockalarm.client.impl;
+package com.devm8.stockalarm.clients.stockapi;
 
-import com.devm8.stockalarm.client.ClientEnum;
-import com.devm8.stockalarm.client.ClientStrategy;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -21,8 +19,8 @@ public class ClientMarketstack implements ClientStrategy {
     }
 
     @Override
-    public String getPrice(String symbol) {
-        return null;
+    public Double getPrice(String symbol) {
+        return 0d;
     }
 
     @Override

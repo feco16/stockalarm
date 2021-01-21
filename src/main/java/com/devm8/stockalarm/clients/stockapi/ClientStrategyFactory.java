@@ -1,4 +1,4 @@
-package com.devm8.stockalarm.client;
+package com.devm8.stockalarm.clients.stockapi;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

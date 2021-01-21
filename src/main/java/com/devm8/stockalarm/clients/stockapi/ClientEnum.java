@@ -1,4 +1,4 @@
-package com.devm8.stockalarm.client;
+package com.devm8.stockalarm.clients.stockapi;
 
 public enum ClientEnum {
 

@@ -5,9 +5,11 @@ public class AlarmDTO {
     private String alarmUUID;
     private String alarmName;
     private String symbol;
-    private long currentPrice;
-    private long percentage;
-    private boolean status;
+    private Double currentPrice;
+    private Double savedPrice;
+    private Double targetPercentage;
+    private Double actualPercentage;
+    private Boolean status;
 
     public String getAlarmUUID() {
         return alarmUUID;
@@ -33,27 +35,43 @@ public class AlarmDTO {
         this.symbol = symbol;
     }
 
-    public long getCurrentPrice() {
+    public Double getCurrentPrice() {
         return currentPrice;
     }
 
-    public void setCurrentPrice(long currentPrice) {
+    public void setCurrentPrice(Double currentPrice) {
         this.currentPrice = currentPrice;
     }
 
-    public long getPercentage() {
-        return percentage;
+    public Double getSavedPrice() {
+        return savedPrice;
     }
 
-    public void setPercentage(long percentage) {
-        this.percentage = percentage;
+    public void setSavedPrice(Double savedPrice) {
+        this.savedPrice = savedPrice;
     }
 
-    public boolean isStatus() {
+    public Double getTargetPercentage() {
+        return targetPercentage;
+    }
+
+    public void setTargetPercentage(Double targetPercentage) {
+        this.targetPercentage = targetPercentage;
+    }
+
+    public Double getActualPercentage() {
+        return actualPercentage;
+    }
+
+    public void setActualPercentage(Double actualPercentage) {
+        this.actualPercentage = actualPercentage;
+    }
+
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 }

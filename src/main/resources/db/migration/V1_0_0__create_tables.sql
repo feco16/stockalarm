@@ -17,6 +17,7 @@ CREATE TABLE public.stock (
     	stock_uuid varchar(255) NOT NULL,
     	stock_name varchar(255) NOT NULL,
     	symbol varchar(255) NULL,
+    	current_price real NULL,
     	CONSTRAINT stock_pkey PRIMARY KEY (stock_id)
 );
 
@@ -26,8 +27,9 @@ CREATE TABLE public.alarm (
     	stock_id int8,
     	alarm_uuid varchar(255) NOT NULL,
     	alarm_name varchar(255) NULL,
-    	current_price int8 NULL,
-    	percentage int8 NULL,
+    	saved_price real NULL,
+    	target_percentage real NULL,
+    	actual_percentage real NULL,
     	status bool NULL,
         CONSTRAINT fk_stock_user FOREIGN KEY (user_id) REFERENCES stock_user(user_id),
         CONSTRAINT fk_stock FOREIGN KEY (stock_id) REFERENCES stock(stock_id),

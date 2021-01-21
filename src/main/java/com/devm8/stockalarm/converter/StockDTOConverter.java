@@ -1,6 +1,7 @@
 package com.devm8.stockalarm.converter;
 
-import com.devm8.stockalarm.client.ClientStrategyFactory;
+import com.devm8.stockalarm.Utils;
+import com.devm8.stockalarm.clients.stockapi.ClientStrategyFactory;
 import com.devm8.stockalarm.controller.MainController;
 import com.devm8.stockalarm.dto.StockDTO;
 import com.devm8.stockalarm.exception.CustomBadRequestException;
@@ -33,7 +34,7 @@ public class StockDTOConverter implements Converter<Stock, StockDTO> {
             logger.warn("Can't fetch the current price for {}", source.getSymbol());
         }
 
-        stockDTO.setPrice(price);
+        stockDTO.setCurrentPrice(Utils.formatDouble(source.getCurrentPrice()));
         return stockDTO;
     }
 }

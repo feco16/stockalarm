@@ -8,6 +8,7 @@
 <body>
 <!--<span th:text="${#request.userPrincipal.principal.username}"></span>-->
 <a th:href="@{/user}">Stocks</a>
+<a th:href="@{/user/alarms}">Refresh</a>
 
 <form  th:action="@{/user/alarm}" th:method="post">
     <lable>Alarm Name</lable>
@@ -17,7 +18,7 @@
     <input type="text" id="symbol" name="symbol">
 
     <lable>Alarm condition</lable>
-    <input type="text" id="percentage" name="percentage">
+    <input type="text" id="targetPercentage" name="targetPercentage">
 
     <input type="submit">
 </form>
@@ -27,7 +28,10 @@
     <tr>
         <th> Name </th>
         <th> Symbol </th>
-        <th> Condition </th>
+        <th> Saved price </th>
+        <th> Target condition </th>
+        <th> Current price </th>
+        <th> Current condition </th>
         <th> Status </th>
     </tr>
     </thead>
@@ -38,8 +42,11 @@
     <tr th:each="alarm : ${alarms}">
         <td><span th:text="${alarm.alarmName}"> Name </span></td>
         <td><span th:text="${alarm.symbol}"> Symbol </span></td>
-        <td><span th:text="${alarm.symbol}"> Condition </span></td>
-        <td><span th:text="${alarm.status}"> Status </span></td>
+        <td><span th:text="${#numbers.formatDecimal(alarm.savedPrice, 1, 4)} + '$'"> Saved price </span></td>
+        <td><span th:text="${#numbers.formatDecimal(alarm.targetPercentage, 1, 4)} + '%'"> Target condition </span></td>
+        <td><span th:text="${#numbers.formatDecimal(alarm.currentPrice, 1, 4)} + '$'"> Current price </span></td>
+        <td><span th:text="${#numbers.formatDecimal(alarm.actualPercentage, 1, 4)} + '%'"> Current condition </span></td>
+        <td><span th:text="${alarm.status} ? 'Active' : 'Inactive'"> Status </span></td>
     </tr>
     </tbody>
 </table>
