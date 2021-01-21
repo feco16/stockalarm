@@ -33,7 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/css/**",
                         "/img/**",
                         "/webjars/**").permitAll()
-                .antMatchers("/user/**").authenticated()
+                .antMatchers("/user/**").anonymous()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

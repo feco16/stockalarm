@@ -1,6 +1,9 @@
 package com.devm8.stockalarm.controller;
 
+import com.devm8.stockalarm.dto.AlarmDTO;
+import com.devm8.stockalarm.dto.StockDTO;
 import com.devm8.stockalarm.dto.StockUserRegistrationDTO;
+import com.devm8.stockalarm.service.AlarmService;
 import com.devm8.stockalarm.service.StockService;
 import com.devm8.stockalarm.service.UserService;
 import org.slf4j.Logger;
@@ -23,6 +26,9 @@ public class MainController {
 
     @Autowired
     StockService stockService;
+
+    @Autowired
+    AlarmService alarmService;
 
     @GetMapping("/")
     public String root() {
@@ -52,5 +58,27 @@ public class MainController {
     public String userIndex(Model model) {
         model.addAttribute("stocks", stockService.getAllStocks());
         return "user/index";
+    }
+
+    @PostMapping("/user/stock")
+    public String createStock(@ModelAttribute("stock") StockDTO stockDTO) {
+        logger.info("Create stock: {}", stockDTO);
+        stockService.createStock(stockDTO);
+
+        return "redirect:/user";
+    }
+
+    @GetMapping("/user/alarms")
+    public String userAlarms(Model model) {
+        model.addAttribute("alarms", alarmService.getAllStocks());
+        return "user/alarms";
+    }
+
+    @PostMapping("/user/alarm")
+    public String createAlarm(@ModelAttribute("alarm") AlarmDTO alarmDTO) {
+        logger.info("Create alarm: {}", alarmDTO);
+        alarmService.createAlarm(alarmDTO);
+
+        return "redirect:/user/alarms";
     }
 }

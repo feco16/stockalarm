@@ -6,7 +6,19 @@
     <title>User</title>
 </head>
 <body>
-<span th:text="${#request.userPrincipal.principal.username}"></span>
+<!--<span th:text="${#request.userPrincipal.principal.username}"></span>-->
+<a th:href="@{/user/alarms}">Alarms</a>
+
+<form  th:action="@{/user/stock}" th:method="post">
+    <lable>Stock Name</lable>
+    <input type="text" id="stockName" name="stockName">
+
+    <lable>Stock symbol</lable>
+    <input type="text" id="symbol" name="symbol">
+
+    <input type="submit">
+</form>
+
 
 <table>
     <thead>

@@ -1,14 +1,18 @@
-package com.devm8.stockalarm.client;
+package com.devm8.stockalarm.client.impl;
 
+import com.devm8.stockalarm.client.ClientEnum;
+import com.devm8.stockalarm.client.ClientStrategy;
 import com.devm8.stockalarm.exception.CustomBadRequestException;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Component
-public class ClientAlphavantage implements ClientStrategy{
+public class ClientAlphavantage implements ClientStrategy {
 
     String BASE_URL = "https://www.alphavantage.co/query";
     String API_KEY = "I5TPWWHJJDCQ47IZ";
@@ -51,6 +55,11 @@ public class ClientAlphavantage implements ClientStrategy{
                 .retrieve().bodyToMono(JSONObject.class).block();
         return parseCurrentPrice(jsonObject, Interval.MIN_1);
 
+    }
+
+    @Override
+    public Map<String, String> getPrices(List<String> symbols) {
+        return null;
     }
 
     private String parseCurrentPrice(JSONObject jsonObject, Interval interval) {

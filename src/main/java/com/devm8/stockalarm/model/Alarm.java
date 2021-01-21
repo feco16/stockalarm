@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -33,9 +34,11 @@ public class Alarm {
     private boolean status;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private StockUser stockUser;
 
     @ManyToOne
+    @JoinColumn(name = "stock_id")
     private Stock stock;
 
     public long getAlarmId() {

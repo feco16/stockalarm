@@ -1,5 +1,6 @@
 package com.devm8.stockalarm.service;
 
+import com.devm8.stockalarm.converter.StockConverter;
 import com.devm8.stockalarm.converter.StockDTOConverter;
 import com.devm8.stockalarm.dto.StockDTO;
 import com.devm8.stockalarm.repository.StockRepository;
@@ -18,12 +19,19 @@ public class StockService {
     @Autowired
     private StockDTOConverter stockDTOConverter;
 
+    @Autowired
+    private StockConverter stockConverter;
+
     public List<StockDTO> getAllStocks() {
         List<StockDTO> stockDTOList = new ArrayList<>();
         stockRepository.findAll().forEach(
                 s -> stockDTOList.add(stockDTOConverter.convert(s))
         );
         return stockDTOList;
+    }
+
+    public void createStock(StockDTO stockDTO) {
+        stockRepository.save(stockConverter.convert(stockDTO));
     }
 
 }

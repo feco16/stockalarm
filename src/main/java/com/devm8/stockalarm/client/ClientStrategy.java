@@ -1,9 +1,14 @@
 package com.devm8.stockalarm.client;
 
+import java.util.List;
+import java.util.Map;
+
 public interface ClientStrategy {
 
-    public String getPrice(String symbol);
+    String getPrice(String symbol);
 
-    public ClientEnum getStrategyName();
+    Map<String, String> getPrices(List<String> symbols);
+
+    ClientEnum getStrategyName();
 
 }
