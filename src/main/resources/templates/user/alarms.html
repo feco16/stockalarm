@@ -6,7 +6,7 @@
     <title>User</title>
 </head>
 <body>
-<!--<span th:text="${#request.userPrincipal.principal.username}"></span>-->
+<span th:text="${#request.userPrincipal.principal.username}"></span>
 <a th:href="@{/user}">Stocks</a>
 <a th:href="@{/user/alarms}">Refresh</a>
 
@@ -33,6 +33,8 @@
         <th> Current price </th>
         <th> Current condition </th>
         <th> Status </th>
+        <th> </th>
+        <th> </th>
     </tr>
     </thead>
     <tbody>
@@ -47,6 +49,15 @@
         <td><span th:text="${#numbers.formatDecimal(alarm.currentPrice, 1, 4)} + '$'"> Current price </span></td>
         <td><span th:text="${#numbers.formatDecimal(alarm.actualPercentage, 1, 4)} + '%'"> Current condition </span></td>
         <td><span th:text="${alarm.status} ? 'Active' : 'Inactive'"> Status </span></td>
+        <td>
+            <a  th:href="@{/user/alarms/delete/{id}(id=${alarm.alarmUUID})}"> Delete</a>
+        </td>
+        <td>
+            <form  th:action="@{/user/alarms/update}" method="post">
+                <input type="hidden" id="alarmNameUpdate" name="alarmName" th:value="${alarm.alarmName}" />
+                <input type="submit" value="Update" />
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>

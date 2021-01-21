@@ -51,6 +51,27 @@ public class AlarmService {
         alarmRepository.save(alarmConverter.convert(alarmDTO));
     }
 
+    public void deleteAlarm(String alarmUuid) {
+        Alarm alarm = alarmRepository.findByAlarmUUID(alarmUuid);
+        if (null == alarm) {
+            logger.info("Alarm with id {} does not exists", alarmUuid);
+            return;
+        }
+        alarmRepository.delete(alarm);
+    }
+
+    public void updateAlarm(AlarmDTO alarmDTO) {
+        Alarm alarm = alarmRepository.findByAlarmUUID(alarmDTO.getAlarmUUID());
+        if (null == alarm) {
+            logger.info("Alarm with id {} does not exists", alarmDTO.getAlarmUUID());
+            return;
+        }
+        alarm.setAlarmName(alarmDTO.getAlarmName());
+        alarm.setTargetPercentage(alarmDTO.getTargetPercentage());
+        alarm.getStock().setSymbol(alarmDTO.getSymbol());
+        alarmRepository.save(alarm);
+    }
+
     public void manageAlarms() {
         alarmRepository.findAll().stream()
                 .filter(a -> a.getStatus() == true)

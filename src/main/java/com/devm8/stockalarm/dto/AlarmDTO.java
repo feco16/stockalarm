@@ -74,4 +74,18 @@ public class AlarmDTO {
     public void setStatus(Boolean status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "AlarmDTO{" +
+                "alarmUUID='" + alarmUUID + '\'' +
+                ", alarmName='" + alarmName + '\'' +
+                ", symbol='" + symbol + '\'' +
+                ", currentPrice=" + currentPrice +
+                ", savedPrice=" + savedPrice +
+                ", targetPercentage=" + targetPercentage +
+                ", actualPercentage=" + actualPercentage +
+                ", status=" + status +
+                '}';
+    }
 }
