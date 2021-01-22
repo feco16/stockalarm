@@ -15,7 +15,7 @@ public class AlarmDTOConverter implements Converter<Alarm, AlarmDTO> {
         alarmDTO.setAlarmUUID(source.getAlarmUUID());
         alarmDTO.setAlarmName(source.getAlarmName());
         alarmDTO.setTargetPercentage(source.getTargetPercentage());
-        alarmDTO.setActualPercentage(source.getActualPercentage());
+        alarmDTO.setActualPercentage(source.getActualPercentage() != null ? source.getActualPercentage() : 0.);
         alarmDTO.setStatus(source.getStatus());
         alarmDTO.setSavedPrice(Utils.formatDouble(source.getSavedPrice()));
 

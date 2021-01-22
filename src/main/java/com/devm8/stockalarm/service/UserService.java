@@ -1,5 +1,6 @@
 package com.devm8.stockalarm.service;
 
+import com.devm8.stockalarm.exception.CustomBadRequestException;
 import com.devm8.stockalarm.model.converter.StockUserConverter;
 import com.devm8.stockalarm.model.dto.StockUserRegistrationDTO;
 import com.devm8.stockalarm.model.entity.StockUser;
@@ -18,8 +19,16 @@ public class UserService {
     StockUserConverter stockUserConverter;
 
     public void createUser(StockUserRegistrationDTO stockUserRegistrationDTO) {
-        StockUser stockUser = stockUserConverter.convert(stockUserRegistrationDTO);
-        userRepository.save(stockUser);
+        StockUser stockUser = userRepository.findByEmail(stockUserRegistrationDTO.getEmail());
+        if (stockUser != null) {
+            throw new CustomBadRequestException("Email " + stockUserRegistrationDTO.getEmail()
+            + " already exists.");
+        }
+        if (!stockUserRegistrationDTO.getPassword().equals(stockUserRegistrationDTO.getConfirmPassword())) {
+            throw new CustomBadRequestException("The given passwords are different!");
+        }
+        StockUser newStockUser = stockUserConverter.convert(stockUserRegistrationDTO);
+        userRepository.save(newStockUser);
     }
 
     public StockUser getByEmail(String email) {

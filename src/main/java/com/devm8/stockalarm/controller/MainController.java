@@ -28,6 +28,11 @@ public class MainController {
         return "login";
     }
 
+    @GetMapping("logout")
+    public String logout() {
+        return "login";
+    }
+
     @GetMapping("/registration")
     public String registrate(@ModelAttribute("user") StockUserRegistrationDTO stockUserRegistrationDTO) {
         return "registration";

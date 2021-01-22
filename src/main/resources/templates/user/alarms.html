@@ -3,14 +3,37 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{fragments/layout}">
 <head>
-    <title>User</title>
+    <title>Alarms</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 </head>
 <body>
-<span th:text="${#request.userPrincipal.principal.username}"></span>
-<a th:href="@{/user}">Stocks</a>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">StockAlarm8</a>
+
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/user}">Stocks</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/user/alarms}">Alarms <span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <span th:text="${#request.userPrincipal.principal.username}"></span>
+            <a th:href="@{/logout}">Logout</a>
+        </form>
+    </div>
+</nav>
+
 <a th:href="@{/user/alarms}">Refresh</a>
 
-<form  th:action="@{/user/alarm}" th:method="post">
+<br>
+
+<form th:action="@{/user/alarm}" th:method="post">
     <lable>Alarm Name</lable>
     <input type="text" id="alarmName" name="alarmName">
 
@@ -23,23 +46,25 @@
     <input type="submit">
 </form>
 
-<table>
+<br>
+
+<table class="table">
     <thead>
     <tr>
-        <th> Name </th>
-        <th> Symbol </th>
-        <th> Saved price </th>
-        <th> Target condition </th>
-        <th> Current price </th>
-        <th> Current condition </th>
-        <th> Status </th>
-        <th> </th>
-        <th> </th>
+        <th> Name</th>
+        <th> Symbol</th>
+        <th> Saved price</th>
+        <th> Target condition</th>
+        <th> Current price</th>
+        <th> Current condition</th>
+        <th> Status</th>
+        <th></th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
     <tr th:if="${alarms.empty}">
-        <td colspan="2"> No Alarms Available </td>
+        <td colspan="2"> No Alarms Available</td>
     </tr>
     <tr th:each="alarm : ${alarms}">
         <td><span th:text="${alarm.alarmName}"> Name </span></td>
@@ -47,15 +72,16 @@
         <td><span th:text="${#numbers.formatDecimal(alarm.savedPrice, 1, 4)} + '$'"> Saved price </span></td>
         <td><span th:text="${#numbers.formatDecimal(alarm.targetPercentage, 1, 4)} + '%'"> Target condition </span></td>
         <td><span th:text="${#numbers.formatDecimal(alarm.currentPrice, 1, 4)} + '$'"> Current price </span></td>
-        <td><span th:text="${#numbers.formatDecimal(alarm.actualPercentage, 1, 4)} + '%'"> Current condition </span></td>
+        <td><span th:text="${#numbers.formatDecimal(alarm.actualPercentage, 1, 4)} + '%'"> Current condition </span>
+        </td>
         <td><span th:text="${alarm.status} ? 'Active' : 'Inactive'"> Status </span></td>
         <td>
-            <a  th:href="@{/user/alarms/delete/{id}(id=${alarm.alarmUUID})}"> Delete</a>
+            <a th:href="@{/user/alarms/delete/{id}(id=${alarm.alarmUUID})}"> Delete</a>
         </td>
         <td>
-            <form  th:action="@{/user/alarms/update}" method="post">
-                <input type="hidden" id="alarmNameUpdate" name="alarmName" th:value="${alarm.alarmName}" />
-                <input type="submit" value="Update" />
+            <form th:action="@{/user/alarms/update}" method="post">
+                <input type="hidden" id="alarmNameUpdate" name="alarmName" th:value="${alarm.alarmName}"/>
+                <input type="submit" value="Update"/>
             </form>
         </td>
     </tr>

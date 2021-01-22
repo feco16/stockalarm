@@ -3,14 +3,37 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{fragments/layout}">
 <head>
-    <title>User</title>
+    <title>Stocks</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 </head>
 <body>
-<!--<span th:text="${#request.userPrincipal.principal.username}"></span>-->
-<a th:href="@{/user/alarms}">Alarms</a>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">StockAlarm8</a>
+
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/user}">Stocks <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/user/alarms}">Alarms</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <span th:text="${#request.userPrincipal.principal.username}"></span>
+            <a th:href="@{/logout}">Logout</a>
+        </form>
+    </div>
+</nav>
+
 <a th:href="@{/user}">Refresh</a>
 
-<form  th:action="@{/user/stock}" th:method="post">
+<br>
+
+<form th:action="@{/user/stock}" th:method="post">
     <lable>Stock Name</lable>
     <input type="text" id="stockName" name="stockName">
 
@@ -20,18 +43,19 @@
     <input type="submit">
 </form>
 
+<br>
 
-<table>
+<table class="table">
     <thead>
     <tr>
-        <th> Name </th>
-        <th> Symbol </th>
-        <th> Current Price </th>
+        <th> Name</th>
+        <th> Symbol</th>
+        <th> Current Price</th>
     </tr>
     </thead>
     <tbody>
     <tr th:if="${stocks.empty}">
-        <td colspan="2"> No Stocks Available </td>
+        <td colspan="2"> No Stocks Available</td>
     </tr>
     <tr th:each="stock : ${stocks}">
         <td><span th:text="${stock.stockName}"> Name </span></td>

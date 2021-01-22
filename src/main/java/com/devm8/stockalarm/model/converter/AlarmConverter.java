@@ -1,5 +1,6 @@
 package com.devm8.stockalarm.model.converter;
 
+import com.devm8.stockalarm.exception.CustomBadRequestException;
 import com.devm8.stockalarm.model.dto.AlarmDTO;
 import com.devm8.stockalarm.model.entity.Alarm;
 import com.devm8.stockalarm.model.entity.Stock;
@@ -40,6 +41,9 @@ public class AlarmConverter implements Converter<AlarmDTO, Alarm> {
         if (null != stock) {
             alarm.setStock(stock);
             alarm.setSavedPrice(stock.getCurrentPrice());
+        } else {
+            throw new CustomBadRequestException("Can't create alarm for stock symbol " + source.getSymbol()
+                    + " . Check available stocks");
         }
         alarm.setStatus(true);
         return alarm;
