@@ -1,14 +1,13 @@
+package com.devm8.stockalarm.unit;
+
 import com.devm8.stockalarm.StockalarmApplication;
 import com.devm8.stockalarm.Utils;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.Assert.assertEquals;
 
-
 @SpringBootTest(classes = StockalarmApplication.class)
-@ActiveProfiles("test")
 public class TestUtils {
 
     @Test

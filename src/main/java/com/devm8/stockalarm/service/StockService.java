@@ -53,13 +53,8 @@ public class StockService {
     }
 
     private void handleStock(Stock stock, ClientStrategy strategy) {
-        Double price = 0.;
-        try {
-//            price = stock.getCurrentPrice() + 1;
-            price = strategy.getPrice(stock.getSymbol());
-        } catch (CustomBadRequestException e) {
-            logger.warn("Can't get the current price for {}", stock.getSymbol());
-        }
+//        Double price = stock.getCurrentPrice() + 1;
+        Double price = strategy.getPrice(stock.getSymbol());
         if (Utils.compareDouble(price, stock.getCurrentPrice())) {
             return;
         }

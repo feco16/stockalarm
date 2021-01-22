@@ -35,15 +35,8 @@ public class AlarmService {
     public List<AlarmDTO> getAlarmsByUser(String email) {
         List<AlarmDTO> alarmDTOList = new ArrayList<>();
         alarmRepository.findAll().stream()
-                .filter(a -> {
-                    if (null != a.getStockUser()) {
-                        return a.getStockUser().getEmail().equals(email);
-                    }
-                    return false;
-                })
-                .forEach(
-                        a -> alarmDTOList.add(alarmDTOConverter.convert(a))
-                );
+                .filter(a -> null != a.getStockUser() ?  a.getStockUser().getEmail().equals(email) : false)
+                .forEach(a -> alarmDTOList.add(alarmDTOConverter.convert(a)));
         return alarmDTOList;
     }
 
@@ -79,7 +72,7 @@ public class AlarmService {
     }
 
     private void handleAlarm(Alarm alarm) {
-        Double actualPercentage = Utils.formatDouble(calculateAlarm(alarm));
+        Double actualPercentage = Utils.formatDouble(calculatePercentage(alarm));
         if (Utils.compareDouble(actualPercentage, alarm.getActualPercentage())) {
             logger.info("Alarm {} value not changed", alarm.getAlarmName());
             return;
@@ -97,7 +90,7 @@ public class AlarmService {
         alarmRepository.save(alarm);
     }
 
-    private Double calculateAlarm(Alarm alarm) {
+    private Double calculatePercentage(Alarm alarm) {
         if (null == alarm.getStock()) {
             return 0.;
         }
@@ -110,9 +103,9 @@ public class AlarmService {
             return false;
         }
         if (alarm.getTargetPercentage() > 0) {
-            return actualPercentage < alarm.getTargetPercentage();
+            return actualPercentage > alarm.getTargetPercentage();
         }
-        return actualPercentage > alarm.getTargetPercentage();
+        return actualPercentage < alarm.getTargetPercentage();
     }
 
 }

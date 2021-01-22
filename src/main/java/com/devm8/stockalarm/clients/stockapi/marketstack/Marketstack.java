@@ -1,17 +1,18 @@
-package com.devm8.stockalarm.clients.stockapi;
+package com.devm8.stockalarm.clients.stockapi.marketstack;
 
+import com.devm8.stockalarm.clients.stockapi.ClientEnum;
+import com.devm8.stockalarm.clients.stockapi.ClientStrategy;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 import java.util.Map;
 
 @Component
-public class ClientMarketstack implements ClientStrategy {
+public class Marketstack implements ClientStrategy {
 
-    String BASE_URL = "http://api.marketstack.com/v1/intraday/latest";
-    String API_KEY = "1539d784940b91ea3126a6a34ff49ad3";
+    String url = "http://api.marketstack.com/v1/intraday/latest";
+    String apiKey = "1539d784940b91ea3126a6a34ff49ad3";
 
     @Override
     public ClientEnum getStrategyName() {
@@ -25,12 +26,12 @@ public class ClientMarketstack implements ClientStrategy {
 
     @Override
     public Map<String, String> getPrices(List<String> symbols) {
-        JSONObject jsonObject = getWebClient()
+        JSONObject jsonObject = getWebClient(url)
                 .get().uri(uriBuilder -> uriBuilder
                         .queryParam("limit", 1)
                         .queryParam("symbols", concatSymbols(symbols))
-                        .queryParam("interval", ClientAlphavantage.Interval.MIN_1.value)
-                        .queryParam("access_key", API_KEY)
+                        .queryParam("interval", "1min")
+                        .queryParam("access_key", apiKey)
                         .build())
                 .retrieve().bodyToMono(JSONObject.class).block();
         return parseCurrentPrice(jsonObject, symbols);
@@ -45,11 +46,4 @@ public class ClientMarketstack implements ClientStrategy {
         return String.join( ",", symbols);
     }
 
-    private WebClient getWebClient() {
-        WebClient client = WebClient
-                .builder()
-                .baseUrl(BASE_URL)
-                .build();
-        return client;
-    }
 }
