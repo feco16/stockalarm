@@ -1,4 +1,4 @@
-package com.devm8.stockalarm.model;
+package com.devm8.stockalarm.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +9,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
+@Table(name = "STOCK_USER")
 @SequenceGenerator(name = "seq_stock_user", sequenceName = "seq_stock_user", allocationSize = 1)
 public class StockUser {
 

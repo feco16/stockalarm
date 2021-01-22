@@ -1,8 +1,8 @@
 package com.devm8.stockalarm.service;
 
-import com.devm8.stockalarm.converter.StockUserConverter;
-import com.devm8.stockalarm.dto.StockUserRegistrationDTO;
-import com.devm8.stockalarm.model.StockUser;
+import com.devm8.stockalarm.model.converter.StockUserConverter;
+import com.devm8.stockalarm.model.dto.StockUserRegistrationDTO;
+import com.devm8.stockalarm.model.entity.StockUser;
 import com.devm8.stockalarm.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

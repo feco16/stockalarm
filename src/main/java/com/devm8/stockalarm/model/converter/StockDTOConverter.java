@@ -1,11 +1,11 @@
-package com.devm8.stockalarm.converter;
+package com.devm8.stockalarm.model.converter;
 
 import com.devm8.stockalarm.Utils;
 import com.devm8.stockalarm.clients.stockapi.ClientStrategyFactory;
 import com.devm8.stockalarm.controller.MainController;
-import com.devm8.stockalarm.dto.StockDTO;
+import com.devm8.stockalarm.model.dto.StockDTO;
 import com.devm8.stockalarm.exception.CustomBadRequestException;
-import com.devm8.stockalarm.model.Stock;
+import com.devm8.stockalarm.model.entity.Stock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

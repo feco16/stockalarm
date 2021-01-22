@@ -1,7 +1,7 @@
 package com.devm8.stockalarm.controller;
 
-import com.devm8.stockalarm.dto.AlarmDTO;
-import com.devm8.stockalarm.dto.StockDTO;
+import com.devm8.stockalarm.model.dto.AlarmDTO;
+import com.devm8.stockalarm.model.dto.StockDTO;
 import com.devm8.stockalarm.service.AlarmService;
 import com.devm8.stockalarm.service.StockService;
 import org.slf4j.Logger;

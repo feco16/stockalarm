@@ -1,12 +1,17 @@
 package com.devm8.stockalarm.service;
 
+import com.devm8.stockalarm.Utils;
 import com.devm8.stockalarm.clients.stockapi.ClientEnum;
 import com.devm8.stockalarm.clients.stockapi.ClientStrategy;
 import com.devm8.stockalarm.clients.stockapi.ClientStrategyFactory;
-import com.devm8.stockalarm.converter.StockConverter;
-import com.devm8.stockalarm.converter.StockDTOConverter;
-import com.devm8.stockalarm.dto.StockDTO;
+import com.devm8.stockalarm.exception.CustomBadRequestException;
+import com.devm8.stockalarm.model.converter.StockConverter;
+import com.devm8.stockalarm.model.converter.StockDTOConverter;
+import com.devm8.stockalarm.model.dto.StockDTO;
+import com.devm8.stockalarm.model.entity.Stock;
 import com.devm8.stockalarm.repository.StockRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +20,8 @@ import java.util.List;
 
 @Service
 public class StockService {
+
+    private static final Logger logger = LoggerFactory.getLogger(StockService.class);
 
     @Autowired
     private StockRepository stockRepository;
@@ -41,15 +48,23 @@ public class StockService {
     }
 
     public void actualizePrices() {
-
         ClientStrategy strategy = clientStrategyFactory.findStrategy(ClientEnum.ALPHAVANTAGE);
-        List<StockDTO> stockDTOList = new ArrayList<>();
-        stockRepository.findAll().forEach(
-                s -> {
-                    s.setCurrentPrice(s.getCurrentPrice() + 1);
-                    stockRepository.save(s);
-                }
-        );
+        stockRepository.findAll().forEach(stock -> handleStock(stock, strategy));
+    }
+
+    private void handleStock(Stock stock, ClientStrategy strategy) {
+        Double price = 0.;
+        try {
+//            price = stock.getCurrentPrice() + 1;
+            price = strategy.getPrice(stock.getSymbol());
+        } catch (CustomBadRequestException e) {
+            logger.warn("Can't get the current price for {}", stock.getSymbol());
+        }
+        if (Utils.compareDouble(price, stock.getCurrentPrice())) {
+            return;
+        }
+        stock.setCurrentPrice(price);
+        stockRepository.save(stock);
     }
 
 }

@@ -1,7 +1,7 @@
-package com.devm8.stockalarm.converter;
+package com.devm8.stockalarm.model.converter;
 
-import com.devm8.stockalarm.dto.StockUserRegistrationDTO;
-import com.devm8.stockalarm.model.StockUser;
+import com.devm8.stockalarm.model.dto.StockUserRegistrationDTO;
+import com.devm8.stockalarm.model.entity.StockUser;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;

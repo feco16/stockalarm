@@ -1,4 +1,4 @@
-package com.devm8.stockalarm.security;
+package com.devm8.stockalarm.config.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

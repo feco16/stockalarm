@@ -1,11 +1,11 @@
 package com.devm8.stockalarm.service;
 
 import com.devm8.stockalarm.Utils;
-import com.devm8.stockalarm.clients.email.EmailService;
-import com.devm8.stockalarm.converter.AlarmConverter;
-import com.devm8.stockalarm.converter.AlarmDTOConverter;
-import com.devm8.stockalarm.dto.AlarmDTO;
-import com.devm8.stockalarm.model.Alarm;
+import com.devm8.stockalarm.config.email.EmailFormat;
+import com.devm8.stockalarm.model.converter.AlarmConverter;
+import com.devm8.stockalarm.model.converter.AlarmDTOConverter;
+import com.devm8.stockalarm.model.dto.AlarmDTO;
+import com.devm8.stockalarm.model.entity.Alarm;
 import com.devm8.stockalarm.repository.AlarmRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,25 +72,29 @@ public class AlarmService {
         alarmRepository.save(alarm);
     }
 
-    public void manageAlarms() {
+    public void updateAllAlarms() {
         alarmRepository.findAll().stream()
                 .filter(a -> a.getStatus() == true)
-                .forEach(
-                        a -> {
-                            Double actualPercentage = Utils.formatDouble(calculateAlarm(a));
-                            if (Utils.compareDouble(actualPercentage, a.getActualPercentage())) {
-                                logger.info("Alarm {} value not changed", a.getAlarmName());
-                                return;
-                            }
-                            a.setActualPercentage(actualPercentage);
-                            if (isAlarmTriggered(a, actualPercentage)) {
-                                a.setStatus(false);
-                                emailService.sendEmail();
-                            }
-                            logger.info("Updating alarm {}", a.getAlarmName());
-                            alarmRepository.save(a);
-                        }
-                );
+                .forEach(a -> handleAlarm(a));
+    }
+
+    private void handleAlarm(Alarm alarm) {
+        Double actualPercentage = Utils.formatDouble(calculateAlarm(alarm));
+        if (Utils.compareDouble(actualPercentage, alarm.getActualPercentage())) {
+            logger.info("Alarm {} value not changed", alarm.getAlarmName());
+            return;
+        }
+        alarm.setActualPercentage(actualPercentage);
+        if (isAlarmTriggered(alarm, actualPercentage)) {
+            alarm.setStatus(false);
+            EmailFormat emailFormat = new EmailFormat(
+                    alarm.getStockUser().getEmail(),
+                    alarm.getStockUser().getFirstName(),
+                    alarm.getAlarmName());
+            emailService.handleMail(emailFormat);
+        }
+        logger.info("Updating alarm {}", alarm.getAlarmName());
+        alarmRepository.save(alarm);
     }
 
     private Double calculateAlarm(Alarm alarm) {

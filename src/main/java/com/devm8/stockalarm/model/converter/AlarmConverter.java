@@ -1,9 +1,9 @@
-package com.devm8.stockalarm.converter;
+package com.devm8.stockalarm.model.converter;
 
-import com.devm8.stockalarm.dto.AlarmDTO;
-import com.devm8.stockalarm.model.Alarm;
-import com.devm8.stockalarm.model.Stock;
-import com.devm8.stockalarm.model.StockUser;
+import com.devm8.stockalarm.model.dto.AlarmDTO;
+import com.devm8.stockalarm.model.entity.Alarm;
+import com.devm8.stockalarm.model.entity.Stock;
+import com.devm8.stockalarm.model.entity.StockUser;
 import com.devm8.stockalarm.repository.StockRepository;
 import com.devm8.stockalarm.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

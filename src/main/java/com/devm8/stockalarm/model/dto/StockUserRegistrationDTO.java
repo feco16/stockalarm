@@ -1,4 +1,4 @@
-package com.devm8.stockalarm.dto;
+package com.devm8.stockalarm.model.dto;
 
 public class StockUserRegistrationDTO {
 

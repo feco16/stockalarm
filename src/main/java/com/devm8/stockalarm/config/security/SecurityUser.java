@@ -1,6 +1,6 @@
-package com.devm8.stockalarm.security;
+package com.devm8.stockalarm.config.security;
 
-import com.devm8.stockalarm.model.StockUser;
+import com.devm8.stockalarm.model.entity.StockUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

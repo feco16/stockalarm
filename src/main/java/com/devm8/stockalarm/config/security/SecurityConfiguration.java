@@ -1,4 +1,4 @@
-package com.devm8.stockalarm.security;
+package com.devm8.stockalarm.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,6 @@ import javax.sql.DataSource;
 @Configuration
 @EnableScheduling
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -54,14 +53,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         userDetailsManager.setUsersByUsernameQuery(userByEmailQuery);
         userDetailsManager.setAuthoritiesByUsernameQuery(authsByUserQuery);
         return userDetailsManager;
-
-
-//        return new JdbcUserDetailsManager(dataSource);
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-//        return NoOpPasswordEncoder.getInstance();
         return new BCryptPasswordEncoder();
     }
 }

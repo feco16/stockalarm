@@ -13,11 +13,10 @@ public class PriceService {
     @Autowired
     private AlarmService alarmService;
 
-    @Scheduled(fixedRate = 20000, initialDelay = 3000)
+    @Scheduled(fixedRateString = "${stock.check.interval}", initialDelay = 3000)
     public void schedulePriceCheck() {
         System.out.println("TIME: " + System.currentTimeMillis() / 1000);
         stockService.actualizePrices();
-        alarmService.manageAlarms();
-
+        alarmService.updateAllAlarms();
     }
 }

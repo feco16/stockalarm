@@ -1,8 +1,8 @@
-package com.devm8.stockalarm.converter;
+package com.devm8.stockalarm.model.converter;
 
 
-import com.devm8.stockalarm.dto.StockDTO;
-import com.devm8.stockalarm.model.Stock;
+import com.devm8.stockalarm.model.dto.StockDTO;
+import com.devm8.stockalarm.model.entity.Stock;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
