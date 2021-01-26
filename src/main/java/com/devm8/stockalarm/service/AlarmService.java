@@ -94,7 +94,7 @@ public class AlarmService {
         if (null == alarm.getStock()) {
             return 0.;
         }
-        Double actualPercentage = 100 - alarm.getStock().getCurrentPrice() * 100 / alarm.getSavedPrice();
+        Double actualPercentage = alarm.getStock().getCurrentPrice() * 100 / alarm.getSavedPrice() - 100;
         return actualPercentage;
     }
 
