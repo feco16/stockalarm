@@ -1,7 +1,5 @@
 package com.devm8.stockalarm.model.dto;
 
-import javax.persistence.Column;
-
 public class StockDTO {
 
     private String stockUUID;

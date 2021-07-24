@@ -4,9 +4,8 @@ import com.devm8.stockalarm.model.dto.AlarmDTO;
 import com.devm8.stockalarm.model.dto.StockDTO;
 import com.devm8.stockalarm.service.AlarmService;
 import com.devm8.stockalarm.service.StockService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,15 +18,12 @@ import java.security.Principal;
 
 @Controller
 @RequestMapping("/user")
+@RequiredArgsConstructor
+@Slf4j
 public class UserController {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-
-    @Autowired
-    StockService stockService;
-
-    @Autowired
-    AlarmService alarmService;
+    private final StockService stockService;
+    private final AlarmService alarmService;
 
     @GetMapping
     public String userIndex(Model model) {
@@ -37,7 +33,7 @@ public class UserController {
 
     @PostMapping("/stock")
     public String createStock(@ModelAttribute("stock") StockDTO stockDTO) {
-        logger.info("Create stock: {}", stockDTO);
+        log.info("Create stock: {}", stockDTO);
         stockService.createStock(stockDTO);
 
         return "redirect:/user";
@@ -52,7 +48,7 @@ public class UserController {
 
     @PostMapping("/alarm")
     public String createAlarm(@ModelAttribute("alarm") AlarmDTO alarmDTO) {
-        logger.info("Create alarm: {}", alarmDTO);
+        log.info("Create alarm: {}", alarmDTO);
         alarmService.createAlarm(alarmDTO);
 
         return "redirect:/user/alarms";
@@ -60,7 +56,7 @@ public class UserController {
 
     @GetMapping("/alarms/delete/{id}")
     public String deleteAlarm(@PathVariable String id) {
-        logger.info("Delete alarm with id: {}", id);
+        log.info("Delete alarm with id: {}", id);
         alarmService.deleteAlarm(id);
 
         return "redirect:/user/alarms";
@@ -70,7 +66,7 @@ public class UserController {
     @PostMapping("/alarms/update")
     public String updateAlarm(@ModelAttribute("alarmUpdate") AlarmDTO alarmDTO) {
         // TODO
-        logger.info("Update alarm to: {}", alarmDTO);
+        log.info("Update alarm to: {}", alarmDTO);
         alarmService.updateAlarm(alarmDTO);
 
         return "redirect:/user/alarms";

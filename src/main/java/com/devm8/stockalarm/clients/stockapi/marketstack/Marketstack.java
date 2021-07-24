@@ -26,7 +26,7 @@ public class Marketstack implements ClientStrategy {
 
     @Override
     public Map<String, String> getPrices(List<String> symbols) {
-        JSONObject jsonObject = getWebClient(url)
+        final JSONObject jsonObject = getWebClient(url)
                 .get().uri(uriBuilder -> uriBuilder
                         .queryParam("limit", 1)
                         .queryParam("symbols", concatSymbols(symbols))

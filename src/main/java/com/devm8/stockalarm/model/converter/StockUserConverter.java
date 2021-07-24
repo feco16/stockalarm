@@ -13,13 +13,13 @@ public class StockUserConverter implements Converter<StockUserRegistrationDTO, S
 
     @Override
     public StockUser convert(StockUserRegistrationDTO source) {
-        StockUser stockUser = new StockUser();
+        final StockUser stockUser = new StockUser();
         stockUser.setUserUUID(UUID.randomUUID().toString());
         stockUser.setFirstName(source.getFirstName());
         stockUser.setLastName(source.getLastName());
         stockUser.setEmail(source.getEmail());
 
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         stockUser.setPassword(bCryptPasswordEncoder.encode(source.getPassword()));
 
 //        stockUser.setPassword(source.getPassword());

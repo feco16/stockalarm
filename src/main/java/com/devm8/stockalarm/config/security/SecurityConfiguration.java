@@ -47,10 +47,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public UserDetailsService userDetailsService(DataSource dataSource) {
-        String userByEmailQuery = "select email, password, true from stock_user where email = ?";
-        String authsByUserQuery = "select email, 'ok' from stock_user su where email = ?";
+        final String userByEmailQuery = "select email, password, true from stock_user where email = ?";
+        final String authsByUserQuery = "select email, 'ok' from stock_user su where email = ?";
 
-        JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
+        final JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
         userDetailsManager.setUsersByUsernameQuery(userByEmailQuery);
         userDetailsManager.setAuthoritiesByUsernameQuery(authsByUserQuery);
         return userDetailsManager;

@@ -1,9 +1,8 @@
 package com.devm8.stockalarm.service;
 
 import com.devm8.stockalarm.config.email.EmailFormat;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -12,13 +11,12 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class EmailService {
 
-    private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
-
-    @Autowired
     @Qualifier("gmail")
-    private JavaMailSender javaMailSender;
+    private final JavaMailSender javaMailSender;
 
     @Value("${email.is.enabled}")
     private Boolean isEnabled;
@@ -28,16 +26,16 @@ public class EmailService {
 
     public void handleMail(EmailFormat emailFormat) {
         if (isEnabled) {
-            logger.info("Sending email to {}", emailFormat.getEmail());
+            log.info("Sending email to {}", emailFormat.getEmail());
             sendMail(emailFormat);
         } else {
-            logger.info("Email service is disabled");
+            log.info("Email service is disabled");
         }
     }
 
     private void sendMail(EmailFormat emailFormat) {
-        MimeMessagePreparator preparator = mimeMessage -> {
-            MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+        final MimeMessagePreparator preparator = mimeMessage -> {
+            final MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
             message.setTo(emailFormat.getEmail());
             message.setFrom(emailAddress, "StockAlarm sys admin");
             message.setSubject(emailFormat.getSubject());

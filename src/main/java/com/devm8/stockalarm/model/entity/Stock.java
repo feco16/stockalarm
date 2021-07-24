@@ -5,29 +5,27 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "STOCK")
-@SequenceGenerator(name = "seq_stock", sequenceName = "seq_stock", allocationSize = 1)
+@Table(name = "stock")
 public class Stock {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_stock")
-    @Column(name = "STOCK_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "stock_id")
     private long stockId;
 
-    @Column(name = "STOCK_UUID")
+    @Column(name = "stock_uuid")
     private String stockUUID;
 
-    @Column(name = "STOCK_NAME")
+    @Column(name = "stock_name")
     private String stockName;
 
-    @Column(name = "SYMBOL")
+    @Column(name = "symbol")
     private String symbol;
 
-    @Column(name = "CURRENT_PRICE")
+    @Column(name = "current_price")
     private Double currentPrice;
 
     public long getStockId() {

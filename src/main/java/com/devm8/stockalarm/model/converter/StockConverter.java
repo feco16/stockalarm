@@ -13,7 +13,7 @@ public class StockConverter implements Converter<StockDTO, Stock> {
 
     @Override
     public Stock convert(StockDTO source) {
-        Stock stock = new Stock();
+        final Stock stock = new Stock();
         stock.setStockUUID(UUID.randomUUID().toString());
         stock.setStockName(source.getStockName());
         stock.setSymbol(source.getSymbol());

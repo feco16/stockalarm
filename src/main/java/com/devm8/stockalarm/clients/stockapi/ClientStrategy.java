@@ -19,7 +19,7 @@ public interface ClientStrategy {
     ClientEnum getStrategyName();
 
     default WebClient getWebClient(String baseURL) {
-        WebClient client = WebClient
+        final WebClient client = WebClient
                 .builder()
                 .baseUrl(baseURL)
                 .build();

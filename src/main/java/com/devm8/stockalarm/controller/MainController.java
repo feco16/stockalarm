@@ -2,21 +2,19 @@ package com.devm8.stockalarm.controller;
 
 import com.devm8.stockalarm.model.dto.StockUserRegistrationDTO;
 import com.devm8.stockalarm.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
+@RequiredArgsConstructor
+@Slf4j
 public class MainController {
 
-    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
-
-    @Autowired
-    UserService userService;
+    private final UserService userService;
 
     @GetMapping("/")
     public String root() {
@@ -41,11 +39,10 @@ public class MainController {
     @PostMapping("/registration")
     String registrationPost(@ModelAttribute("user") StockUserRegistrationDTO stockUserRegistrationDTO) {
 
-        logger.info("Create user: {}", stockUserRegistrationDTO);
+        log.info("Create user: {}", stockUserRegistrationDTO);
         userService.createUser(stockUserRegistrationDTO);
 
         return "redirect:/login";
     }
-
 
 }

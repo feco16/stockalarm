@@ -1,6 +1,7 @@
 plugins {
 	id 'org.springframework.boot' version '2.4.2'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'checkstyle'
 	id 'java'
 }
 
@@ -13,25 +14,23 @@ repositories {
 }
 
 dependencies {
+
+	// Starters
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation('org.springframework.boot:spring-boot-starter-security')
+	implementation('org.springframework.boot:spring-boot-starter-validation')
 
-
-	implementation('org.postgresql:postgresql')
+    // Database
+//	implementation('org.postgresql:postgresql')
+	implementation('org.mariadb.jdbc:mariadb-java-client')
 	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
 	implementation("org.flywaydb:flyway-core")
-
-	implementation('org.springframework.boot:spring-boot-starter-security')
-
-	implementation('org.springframework.boot:spring-boot-starter-validation')
 
 	// UI
 	implementation(group: 'org.webjars', name: 'bootstrap', version: '4.5.3')
 	implementation(group: 'org.webjars', name: 'jquery', version: '3.5.1')
 	implementation('org.thymeleaf.extras:thymeleaf-extras-springsecurity4:3.0.4.RELEASE')
-
-
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
 	// API
 	implementation('org.springframework.boot:spring-boot-starter-webflux')
@@ -40,6 +39,11 @@ dependencies {
 	// tools
 	implementation('com.googlecode.json-simple:json-simple:1.1.1')
 	implementation('org.springframework.boot:spring-boot-starter-mail:2.2.5.RELEASE')
+	implementation('org.projectlombok:lombok')
+
+	annotationProcessor 'org.projectlombok:lombok'
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
 
 	// test

@@ -2,8 +2,8 @@ DROP TABLE IF EXISTS alarm;
 DROP TABLE IF EXISTS stock_user;
 DROP TABLE IF EXISTS stock;
 
-CREATE TABLE public.stock_user (
-    	user_id int8 NOT NULL,
+CREATE TABLE stock_user (
+    	user_id int8 NOT NULL AUTO_INCREMENT,
     	user_uuid varchar(255) NOT NULL,
     	firstname varchar(255) NULL,
     	lastname varchar(255) NULL,
@@ -12,8 +12,8 @@ CREATE TABLE public.stock_user (
     	CONSTRAINT stock_user_pkey PRIMARY KEY (user_id)
 );
 
-CREATE TABLE public.stock (
-    	stock_id int8 NOT NULL,
+CREATE TABLE stock (
+    	stock_id int8 NOT NULL AUTO_INCREMENT,
     	stock_uuid varchar(255) NOT NULL,
     	stock_name varchar(255) NOT NULL,
     	symbol varchar(255) NULL,
@@ -21,8 +21,8 @@ CREATE TABLE public.stock (
     	CONSTRAINT stock_pkey PRIMARY KEY (stock_id)
 );
 
-CREATE TABLE public.alarm (
-    	alarm_id int8 NOT NULL,
+CREATE TABLE alarm (
+    	alarm_id int8 NOT NULL AUTO_INCREMENT,
     	user_id int8,
     	stock_id int8,
     	alarm_uuid varchar(255) NOT NULL,
@@ -36,17 +36,17 @@ CREATE TABLE public.alarm (
     	CONSTRAINT alarm_pkey PRIMARY KEY (alarm_id)
 
 );
-
-CREATE SEQUENCE seq_stock_user
-    INCREMENT BY 1
-    MINVALUE 1
-    NO MAXVALUE
-    START WITH 1
-    OWNED BY stock_user.user_id;
-
-CREATE SEQUENCE seq_stock
-    INCREMENT BY 1
-    MINVALUE 1
-    NO MAXVALUE
-    START WITH 1
-    OWNED BY stock.stock_id;
+--
+-- -- CREATE SEQUENCE seq_stock_user
+-- --     INCREMENT BY 1
+-- --     MINVALUE 1
+-- --     NO MAXVALUE
+-- --     START WITH 1
+-- --     OWNED BY stock_user.user_id;
+-- --
+-- -- CREATE SEQUENCE seq_stock
+-- --     INCREMENT BY 1
+-- --     MINVALUE 1
+-- --     NO MAXVALUE
+-- --     START WITH 1
+-- --     OWNED BY stock.stock_id;

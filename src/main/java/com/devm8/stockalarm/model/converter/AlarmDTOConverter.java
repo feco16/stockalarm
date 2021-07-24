@@ -11,7 +11,7 @@ public class AlarmDTOConverter implements Converter<Alarm, AlarmDTO> {
 
     @Override
     public AlarmDTO convert(Alarm source) {
-        AlarmDTO alarmDTO = new AlarmDTO();
+        final AlarmDTO alarmDTO = new AlarmDTO();
         alarmDTO.setAlarmUUID(source.getAlarmUUID());
         alarmDTO.setAlarmName(source.getAlarmName());
         alarmDTO.setTargetPercentage(source.getTargetPercentage());

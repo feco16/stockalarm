@@ -26,18 +26,18 @@ public class AlarmConverter implements Converter<AlarmDTO, Alarm> {
 
     @Override
     public Alarm convert(AlarmDTO source) {
-        Alarm alarm = new Alarm();
+        final Alarm alarm = new Alarm();
         alarm.setAlarmUUID(UUID.randomUUID().toString());
         alarm.setAlarmName(source.getAlarmName());
         alarm.setTargetPercentage(source.getTargetPercentage());
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        StockUser stockUser = userRepository.findByEmail(authentication.getName());
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        final StockUser stockUser = userRepository.findByEmail(authentication.getName());
         if (null != stockUser) {
             alarm.setStockUser(stockUser);
         }
 
-        Stock stock = stockRepository.findBySymbol(source.getSymbol());
+        final Stock stock = stockRepository.findBySymbol(source.getSymbol());
         if (null != stock) {
             alarm.setStock(stock);
             alarm.setSavedPrice(stock.getCurrentPrice());

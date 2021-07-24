@@ -7,35 +7,27 @@ import com.devm8.stockalarm.model.converter.AlarmDTOConverter;
 import com.devm8.stockalarm.model.dto.AlarmDTO;
 import com.devm8.stockalarm.model.entity.Alarm;
 import com.devm8.stockalarm.repository.AlarmRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class AlarmService {
 
-    private static final Logger logger = LoggerFactory.getLogger(AlarmService.class);
-
-    @Autowired
-    private AlarmRepository alarmRepository;
-
-    @Autowired
-    private AlarmDTOConverter alarmDTOConverter;
-
-    @Autowired
-    private AlarmConverter alarmConverter;
-
-    @Autowired
-    private EmailService emailService;
+    private final AlarmRepository alarmRepository;
+    private final AlarmDTOConverter alarmDTOConverter;
+    private final AlarmConverter alarmConverter;
+    private final EmailService emailService;
 
     public List<AlarmDTO> getAlarmsByUser(String email) {
-        List<AlarmDTO> alarmDTOList = new ArrayList<>();
+        final List<AlarmDTO> alarmDTOList = new ArrayList<>();
         alarmRepository.findAll().stream()
-                .filter(a -> null != a.getStockUser() ?  a.getStockUser().getEmail().equals(email) : false)
+                .filter(a -> null != a.getStockUser() ? a.getStockUser().getEmail().equals(email) : false)
                 .forEach(a -> alarmDTOList.add(alarmDTOConverter.convert(a)));
         return alarmDTOList;
     }
@@ -45,18 +37,18 @@ public class AlarmService {
     }
 
     public void deleteAlarm(String alarmUuid) {
-        Alarm alarm = alarmRepository.findByAlarmUUID(alarmUuid);
+        final Alarm alarm = alarmRepository.findByAlarmUUID(alarmUuid);
         if (null == alarm) {
-            logger.info("Alarm with id {} does not exists", alarmUuid);
+            log.info("Alarm with id {} does not exists", alarmUuid);
             return;
         }
         alarmRepository.delete(alarm);
     }
 
     public void updateAlarm(AlarmDTO alarmDTO) {
-        Alarm alarm = alarmRepository.findByAlarmUUID(alarmDTO.getAlarmUUID());
+        final Alarm alarm = alarmRepository.findByAlarmUUID(alarmDTO.getAlarmUUID());
         if (null == alarm) {
-            logger.info("Alarm with id {} does not exists", alarmDTO.getAlarmUUID());
+            log.info("Alarm with id {} does not exists", alarmDTO.getAlarmUUID());
             return;
         }
         alarm.setAlarmName(alarmDTO.getAlarmName());
@@ -72,21 +64,21 @@ public class AlarmService {
     }
 
     private void handleAlarm(Alarm alarm) {
-        Double actualPercentage = Utils.formatDouble(calculatePercentage(alarm));
+        final Double actualPercentage = Utils.formatDouble(calculatePercentage(alarm));
         if (Utils.compareDouble(actualPercentage, alarm.getActualPercentage())) {
-            logger.info("Alarm {} value not changed", alarm.getAlarmName());
+            log.info("Alarm {} value not changed", alarm.getAlarmName());
             return;
         }
         alarm.setActualPercentage(actualPercentage);
         if (isAlarmTriggered(alarm, actualPercentage)) {
             alarm.setStatus(false);
-            EmailFormat emailFormat = new EmailFormat(
+            final EmailFormat emailFormat = new EmailFormat(
                     alarm.getStockUser().getEmail(),
                     alarm.getStockUser().getFirstName(),
                     alarm.getAlarmName());
             emailService.handleMail(emailFormat);
         }
-        logger.info("Updating alarm {}", alarm.getAlarmName());
+        log.info("Updating alarm {}", alarm.getAlarmName());
         alarmRepository.save(alarm);
     }
 
@@ -94,7 +86,7 @@ public class AlarmService {
         if (null == alarm.getStock()) {
             return 0.;
         }
-        Double actualPercentage = alarm.getStock().getCurrentPrice() * 100 / alarm.getSavedPrice() - 100;
+        final Double actualPercentage = alarm.getStock().getCurrentPrice() * 100 / alarm.getSavedPrice() - 100;
         return actualPercentage;
     }
 

@@ -1,18 +1,15 @@
 package com.devm8.stockalarm.clients.stockapi.alphavantage;
 
 import com.devm8.stockalarm.Utils;
+import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 public class AlphavantageResponse {
 
-    private static final Logger logger = LoggerFactory.getLogger(AlphavantageResponse.class);
-
-    private Map metaData;
     private Map timeSeries;
     private boolean isSucces;
 
@@ -27,9 +24,9 @@ public class AlphavantageResponse {
     }
 
     public AlphavantageResponse(JSONObject jsonObject, Alphavantage.Interval interval) {
-        this.metaData = (Map) jsonObject.get("Meta Data");
+        final Map metaData = (Map) jsonObject.get("Meta Data");
         this.timeSeries = (Map) jsonObject.get(String.format("Time Series (%s)", interval.value));
-        this.isSucces = (null != this.metaData && null != this.timeSeries);
+        this.isSucces = (null != metaData && null != this.timeSeries);
     }
 
     public boolean isSucces() {
@@ -43,12 +40,12 @@ public class AlphavantageResponse {
     private Double parseCurrentPrice() {
         Double value = 0.;
         try {
-            Object price = getFirstEntry(timeSeries).get(StockPrice.OPEN.value);
+            final Object price = getFirstEntry(timeSeries).get(StockPrice.OPEN.value);
             if (null != price) {
                 value = Double.valueOf(price.toString());
             }
         } catch (NumberFormatException e) {
-            logger.warn("The stock value for symbol is not a number");
+            log.warn("The stock value for symbol is not a number");
         }
         return value;
     }

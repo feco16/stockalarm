@@ -13,7 +13,7 @@ public class EmailFormat {
     }
 
     public String constructBody() {
-        StringBuilder stringBuilder = new StringBuilder();
+        final StringBuilder stringBuilder = new StringBuilder();
         return stringBuilder.append("Welcome ").append(firstName).append(",")
                 .append(System.lineSeparator())
                 .append("Your alarm '").append(alarmName).append("' has reached the target.")
