@@ -32,12 +32,12 @@ public class MainController {
     }
 
     @GetMapping("/registration")
-    public String registrate(@ModelAttribute("user") StockUserRegistrationDTO stockUserRegistrationDTO) {
+    public String registrate(@ModelAttribute("user") final StockUserRegistrationDTO stockUserRegistrationDTO) {
         return "registration";
     }
 
     @PostMapping("/registration")
-    String registrationPost(@ModelAttribute("user") StockUserRegistrationDTO stockUserRegistrationDTO) {
+    String registrationPost(@ModelAttribute("user") final StockUserRegistrationDTO stockUserRegistrationDTO) {
 
         log.info("Create user: {}", stockUserRegistrationDTO);
         userService.createUser(stockUserRegistrationDTO);

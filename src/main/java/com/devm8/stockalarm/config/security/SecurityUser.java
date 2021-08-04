@@ -11,7 +11,7 @@ public class SecurityUser implements UserDetails {
     private final StockUser stockUser;
     private final String authority;
 
-    public SecurityUser(StockUser stockUser, String authority) {
+    public SecurityUser(final StockUser stockUser, final String authority) {
         this.stockUser = stockUser;
         this.authority = authority;
     }

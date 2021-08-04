@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class AlarmDTOConverter implements Converter<Alarm, AlarmDTO> {
 
     @Override
-    public AlarmDTO convert(Alarm source) {
+    public AlarmDTO convert(final Alarm source) {
         final AlarmDTO alarmDTO = new AlarmDTO();
         alarmDTO.setAlarmUUID(source.getAlarmUUID());
         alarmDTO.setAlarmName(source.getAlarmName());

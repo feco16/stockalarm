@@ -21,12 +21,12 @@ public class Alphavantage implements ClientStrategy {
 
         public final String value;
 
-        Interval(String value) {
+        Interval(final String value) {
             this.value = value;
         }
     }
 
-    public void setUrl(String url) {
+    public void setUrl(final String url) {
         this.url = url;
     }
 
@@ -36,7 +36,7 @@ public class Alphavantage implements ClientStrategy {
     }
 
     @Override
-    public Double getPrice(String symbol) {
+    public Double getPrice(final String symbol) {
         final JSONObject jsonObject = WebClient
                 .builder()
                 .baseUrl(url)
@@ -54,7 +54,7 @@ public class Alphavantage implements ClientStrategy {
     }
 
     @Override
-    public Map<String, String> getPrices(List<String> symbols) {
+    public Map<String, String> getPrices(final List<String> symbols) {
         return null;
     }
 

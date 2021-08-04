@@ -26,13 +26,13 @@ public class UserController {
     private final AlarmService alarmService;
 
     @GetMapping
-    public String userIndex(Model model) {
+    public String userIndex(final Model model) {
         model.addAttribute("stocks", stockService.getAllStocks());
         return "user/index";
     }
 
     @PostMapping("/stock")
-    public String createStock(@ModelAttribute("stock") StockDTO stockDTO) {
+    public String createStock(@ModelAttribute("stock") final StockDTO stockDTO) {
         log.info("Create stock: {}", stockDTO);
         stockService.createStock(stockDTO);
 
@@ -40,14 +40,14 @@ public class UserController {
     }
 
     @GetMapping("/alarms")
-    public String userAlarms(Model model, Principal principal) {
+    public String userAlarms(final Model model, final Principal principal) {
         model.addAttribute("alarms", alarmService.getAlarmsByUser(principal.getName()));
         model.addAttribute("alarmUpdate", new AlarmDTO());
         return "user/alarms";
     }
 
     @PostMapping("/alarm")
-    public String createAlarm(@ModelAttribute("alarm") AlarmDTO alarmDTO) {
+    public String createAlarm(@ModelAttribute("alarm") final AlarmDTO alarmDTO) {
         log.info("Create alarm: {}", alarmDTO);
         alarmService.createAlarm(alarmDTO);
 
@@ -55,7 +55,7 @@ public class UserController {
     }
 
     @GetMapping("/alarms/delete/{id}")
-    public String deleteAlarm(@PathVariable String id) {
+    public String deleteAlarm(@PathVariable final String id) {
         log.info("Delete alarm with id: {}", id);
         alarmService.deleteAlarm(id);
 
@@ -64,7 +64,7 @@ public class UserController {
     }
 
     @PostMapping("/alarms/update")
-    public String updateAlarm(@ModelAttribute("alarmUpdate") AlarmDTO alarmDTO) {
+    public String updateAlarm(@ModelAttribute("alarmUpdate") final AlarmDTO alarmDTO) {
         // TODO
         log.info("Update alarm to: {}", alarmDTO);
         alarmService.updateAlarm(alarmDTO);

@@ -18,7 +18,7 @@ import javax.sql.DataSource;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(final HttpSecurity http) throws Exception {
         http
                 .csrf()
                 .disable()
@@ -46,7 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(DataSource dataSource) {
+    public UserDetailsService userDetailsService(final DataSource dataSource) {
         final String userByEmailQuery = "select email, password, true from stock_user where email = ?";
         final String authsByUserQuery = "select email, 'ok' from stock_user su where email = ?";
 

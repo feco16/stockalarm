@@ -8,20 +8,21 @@ import java.util.Map;
 public interface ClientStrategy {
 
     /**
-     * Returns the latest price for the given stock symbol
+     * Returns the latest price for the given stock symbol.
+     *
      * @param symbol - Unique series of letters representing a stock
      * @return {@link Double} number
      */
-    Double getPrice(String symbol);
+    Double getPrice(final String symbol);
 
-    Map<String, String> getPrices(List<String> symbols);
+    Map<String, String> getPrices(final List<String> symbols);
 
     ClientEnum getStrategyName();
 
-    default WebClient getWebClient(String baseURL) {
+    default WebClient getWebClient(final String baseUrl) {
         final WebClient client = WebClient
                 .builder()
-                .baseUrl(baseURL)
+                .baseUrl(baseUrl)
                 .build();
         return client;
     }

@@ -1,5 +1,8 @@
 package com.devm8.stockalarm.model.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +14,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "alarm")
+@Getter
+@Setter
 public class Alarm {
 
     @Id
@@ -44,75 +49,4 @@ public class Alarm {
     @JoinColumn(name = "stock_id")
     private Stock stock;
 
-    public long getAlarmId() {
-        return alarmId;
-    }
-
-    public void setAlarmId(long alarmId) {
-        this.alarmId = alarmId;
-    }
-
-    public String getAlarmUUID() {
-        return alarmUUID;
-    }
-
-    public void setAlarmUUID(String alarmUUID) {
-        this.alarmUUID = alarmUUID;
-    }
-
-    public String getAlarmName() {
-        return alarmName;
-    }
-
-    public void setAlarmName(String alarmName) {
-        this.alarmName = alarmName;
-    }
-
-    public Double getSavedPrice() {
-        return savedPrice;
-    }
-
-    public void setSavedPrice(Double savedPrice) {
-        this.savedPrice = savedPrice;
-    }
-
-    public Double getTargetPercentage() {
-        return targetPercentage;
-    }
-
-    public void setTargetPercentage(Double targetPercentage) {
-        this.targetPercentage = targetPercentage;
-    }
-
-    public Double getActualPercentage() {
-        return actualPercentage;
-    }
-
-    public void setActualPercentage(Double actualPercentage) {
-        this.actualPercentage = actualPercentage;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
-    public StockUser getStockUser() {
-        return stockUser;
-    }
-
-    public void setStockUser(StockUser stockUser) {
-        this.stockUser = stockUser;
-    }
-
-    public Stock getStock() {
-        return stock;
-    }
-
-    public void setStock(Stock stock) {
-        this.stock = stock;
-    }
 }

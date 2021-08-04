@@ -2,11 +2,11 @@ package com.devm8.stockalarm.config.email;
 
 public class EmailFormat {
 
-    private String email;
-    private String firstName;
-    private String alarmName;
+    private final String email;
+    private final String firstName;
+    private final String alarmName;
 
-    public EmailFormat(String email, String firstName, String alarmName) {
+    public EmailFormat(final String email, final String firstName, final String alarmName) {
         this.email = email;
         this.firstName = firstName;
         this.alarmName = alarmName;

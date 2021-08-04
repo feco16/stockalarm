@@ -25,7 +25,7 @@ public class AlarmConverter implements Converter<AlarmDTO, Alarm> {
     StockRepository stockRepository;
 
     @Override
-    public Alarm convert(AlarmDTO source) {
+    public Alarm convert(final AlarmDTO source) {
         final Alarm alarm = new Alarm();
         alarm.setAlarmUUID(UUID.randomUUID().toString());
         alarm.setAlarmName(source.getAlarmName());

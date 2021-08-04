@@ -18,12 +18,12 @@ public class AlphavantageResponse {
 
         public final String value;
 
-        StockPrice(String value) {
+        StockPrice(final String value) {
             this.value = value;
         }
     }
 
-    public AlphavantageResponse(JSONObject jsonObject, Alphavantage.Interval interval) {
+    public AlphavantageResponse(final JSONObject jsonObject, final Alphavantage.Interval interval) {
         final Map metaData = (Map) jsonObject.get("Meta Data");
         this.timeSeries = (Map) jsonObject.get(String.format("Time Series (%s)", interval.value));
         this.isSucces = (null != metaData && null != this.timeSeries);
@@ -51,7 +51,7 @@ public class AlphavantageResponse {
     }
 
 
-    private Map<String, String> getFirstEntry(Map<String, Map> map) {
+    private Map<String, String> getFirstEntry(final Map<String, Map> map) {
         return (HashMap<String, String>) map.entrySet().iterator().next().getValue();
     }
 

@@ -16,7 +16,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final StockUserConverter stockUserConverter;
 
-    public void createUser(StockUserRegistrationDTO stockUserRegistrationDTO) {
+    public void createUser(final StockUserRegistrationDTO stockUserRegistrationDTO) {
         final StockUser stockUser = userRepository.findByEmail(stockUserRegistrationDTO.getEmail());
         if (stockUser != null) {
             throw new CustomBadRequestException("Email " + stockUserRegistrationDTO.getEmail()
@@ -29,7 +29,7 @@ public class UserService {
         userRepository.save(newStockUser);
     }
 
-    public StockUser getByEmail(String email) {
+    public StockUser getByEmail(final String email) {
         final StockUser stockUser = userRepository.findByEmail(email);
         if (stockUser == null) {
             throw new UsernameNotFoundException("Invalid username or password.");

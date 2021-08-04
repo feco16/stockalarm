@@ -12,7 +12,7 @@ import java.util.UUID;
 public class StockUserConverter implements Converter<StockUserRegistrationDTO, StockUser> {
 
     @Override
-    public StockUser convert(StockUserRegistrationDTO source) {
+    public StockUser convert(final StockUserRegistrationDTO source) {
         final StockUser stockUser = new StockUser();
         stockUser.setUserUUID(UUID.randomUUID().toString());
         stockUser.setFirstName(source.getFirstName());
@@ -22,7 +22,7 @@ public class StockUserConverter implements Converter<StockUserRegistrationDTO, S
         final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         stockUser.setPassword(bCryptPasswordEncoder.encode(source.getPassword()));
 
-//        stockUser.setPassword(source.getPassword());
+        //  stockUser.setPassword(source.getPassword());
         return stockUser;
     }
 }

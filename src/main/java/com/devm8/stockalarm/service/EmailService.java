@@ -24,7 +24,7 @@ public class EmailService {
     @Value("${email.from.address}")
     private String emailAddress;
 
-    public void handleMail(EmailFormat emailFormat) {
+    public void handleMail(final EmailFormat emailFormat) {
         if (isEnabled) {
             log.info("Sending email to {}", emailFormat.getEmail());
             sendMail(emailFormat);
@@ -33,7 +33,7 @@ public class EmailService {
         }
     }
 
-    private void sendMail(EmailFormat emailFormat) {
+    private void sendMail(final EmailFormat emailFormat) {
         final MimeMessagePreparator preparator = mimeMessage -> {
             final MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
             message.setTo(emailFormat.getEmail());

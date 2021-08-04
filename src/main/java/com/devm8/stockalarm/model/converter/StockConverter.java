@@ -12,7 +12,7 @@ import java.util.UUID;
 public class StockConverter implements Converter<StockDTO, Stock> {
 
     @Override
-    public Stock convert(StockDTO source) {
+    public Stock convert(final StockDTO source) {
         final Stock stock = new Stock();
         stock.setStockUUID(UUID.randomUUID().toString());
         stock.setStockName(source.getStockName());

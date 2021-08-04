@@ -1,5 +1,9 @@
 package com.devm8.stockalarm.model.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +13,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "stock")
+@Getter
+@Setter
+@ToString
 public class Stock {
 
     @Id
@@ -28,54 +35,4 @@ public class Stock {
     @Column(name = "current_price")
     private Double currentPrice;
 
-    public long getStockId() {
-        return stockId;
-    }
-
-    public void setStockId(long stockId) {
-        this.stockId = stockId;
-    }
-
-    public String getStockUUID() {
-        return stockUUID;
-    }
-
-    public void setStockUUID(String stockUUID) {
-        this.stockUUID = stockUUID;
-    }
-
-    public String getStockName() {
-        return stockName;
-    }
-
-    public void setStockName(String stockName) {
-        this.stockName = stockName;
-    }
-
-    public String getSymbol() {
-        return symbol;
-    }
-
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
-
-    public Double getCurrentPrice() {
-        return currentPrice;
-    }
-
-    public void setCurrentPrice(Double currentPrice) {
-        this.currentPrice = currentPrice;
-    }
-
-    @Override
-    public String toString() {
-        return "Stock{" +
-                "stockId=" + stockId +
-                ", stockUUID='" + stockUUID + '\'' +
-                ", stockName='" + stockName + '\'' +
-                ", symbol='" + symbol + '\'' +
-                ", currentPrice=" + currentPrice +
-                '}';
-    }
 }

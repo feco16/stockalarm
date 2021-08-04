@@ -18,7 +18,7 @@ public class StockDTOConverter implements Converter<Stock, StockDTO> {
     private ClientStrategyFactory clientStrategyFactory;
 
     @Override
-    public StockDTO convert(Stock source) {
+    public StockDTO convert(final Stock source) {
         final StockDTO stockDTO = new StockDTO();
         stockDTO.setStockUUID(source.getStockUUID());
         stockDTO.setStockName(source.getStockName());
@@ -26,7 +26,7 @@ public class StockDTOConverter implements Converter<Stock, StockDTO> {
 
         final String price = "NaN";
         try {
-//            price = clientStrategyFactory.findStrategy(ClientEnum.ALPHAVANTAGE).getPrice(source.getSymbol());
+        //  price = clientStrategyFactory.findStrategy(ClientEnum.ALPHAVANTAGE).getPrice(source.getSymbol());
         } catch (CustomBadRequestException e) {
             log.warn("Can't fetch the current price for {}", source.getSymbol());
         }

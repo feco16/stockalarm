@@ -13,12 +13,13 @@ public class ClientStrategyFactory {
     private Map<ClientEnum, ClientStrategy> strategies;
 
     @Autowired
-    public ClientStrategyFactory(Set<ClientStrategy> strategySet) {
+    public ClientStrategyFactory(final Set<ClientStrategy> strategySet) {
         strategies = new HashMap<>();
         strategySet.forEach(
-                strategy ->strategies.put(strategy.getStrategyName(), strategy));    }
+                strategy -> strategies.put(strategy.getStrategyName(), strategy));
+    }
 
-    public ClientStrategy findStrategy(ClientEnum strategyName) {
+    public ClientStrategy findStrategy(final ClientEnum strategyName) {
         return strategies.get(strategyName);
     }
 }

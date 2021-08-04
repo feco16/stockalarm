@@ -24,7 +24,7 @@ public class AlarmService {
     private final AlarmConverter alarmConverter;
     private final EmailService emailService;
 
-    public List<AlarmDTO> getAlarmsByUser(String email) {
+    public List<AlarmDTO> getAlarmsByUser(final String email) {
         final List<AlarmDTO> alarmDTOList = new ArrayList<>();
         alarmRepository.findAll().stream()
                 .filter(a -> null != a.getStockUser() ? a.getStockUser().getEmail().equals(email) : false)
@@ -32,11 +32,11 @@ public class AlarmService {
         return alarmDTOList;
     }
 
-    public void createAlarm(AlarmDTO alarmDTO) {
+    public void createAlarm(final AlarmDTO alarmDTO) {
         alarmRepository.save(alarmConverter.convert(alarmDTO));
     }
 
-    public void deleteAlarm(String alarmUuid) {
+    public void deleteAlarm(final String alarmUuid) {
         final Alarm alarm = alarmRepository.findByAlarmUUID(alarmUuid);
         if (null == alarm) {
             log.info("Alarm with id {} does not exists", alarmUuid);
@@ -45,7 +45,7 @@ public class AlarmService {
         alarmRepository.delete(alarm);
     }
 
-    public void updateAlarm(AlarmDTO alarmDTO) {
+    public void updateAlarm(final AlarmDTO alarmDTO) {
         final Alarm alarm = alarmRepository.findByAlarmUUID(alarmDTO.getAlarmUUID());
         if (null == alarm) {
             log.info("Alarm with id {} does not exists", alarmDTO.getAlarmUUID());
@@ -63,7 +63,7 @@ public class AlarmService {
                 .forEach(a -> handleAlarm(a));
     }
 
-    private void handleAlarm(Alarm alarm) {
+    private void handleAlarm(final Alarm alarm) {
         final Double actualPercentage = Utils.formatDouble(calculatePercentage(alarm));
         if (Utils.compareDouble(actualPercentage, alarm.getActualPercentage())) {
             log.info("Alarm {} value not changed", alarm.getAlarmName());
@@ -82,7 +82,7 @@ public class AlarmService {
         alarmRepository.save(alarm);
     }
 
-    private Double calculatePercentage(Alarm alarm) {
+    private Double calculatePercentage(final Alarm alarm) {
         if (null == alarm.getStock()) {
             return 0.;
         }
@@ -90,7 +90,7 @@ public class AlarmService {
         return actualPercentage;
     }
 
-    private boolean isAlarmTriggered(Alarm alarm, Double actualPercentage) {
+    private boolean isAlarmTriggered(final Alarm alarm, final Double actualPercentage) {
         if (null == alarm.getTargetPercentage()) {
             return false;
         }

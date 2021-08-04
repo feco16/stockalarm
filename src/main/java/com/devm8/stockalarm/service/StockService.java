@@ -34,7 +34,7 @@ public class StockService {
         return stockDTOList;
     }
 
-    public void createStock(StockDTO stockDTO) {
+    public void createStock(final StockDTO stockDTO) {
         stockRepository.save(stockConverter.convert(stockDTO));
     }
 
@@ -43,8 +43,8 @@ public class StockService {
         stockRepository.findAll().forEach(stock -> handleStock(stock, strategy));
     }
 
-    private void handleStock(Stock stock, ClientStrategy strategy) {
-//        Double price = stock.getCurrentPrice() + 1;
+    private void handleStock(final Stock stock, final ClientStrategy strategy) {
+        // Double price = stock.getCurrentPrice() + 1;
         final Double price = strategy.getPrice(stock.getSymbol());
         if (Utils.compareDouble(price, stock.getCurrentPrice())) {
             return;

@@ -4,7 +4,7 @@ import java.text.DecimalFormat;
 
 public class Utils {
 
-    public static Double formatDouble(Double value) {
+    public static Double formatDouble(final Double value) {
         final DecimalFormat df = new DecimalFormat("#.0000");
         double formattedDouble = 0.;
         try {
@@ -15,7 +15,7 @@ public class Utils {
         return formattedDouble;
     }
 
-    public static boolean compareDouble(Double value1, Double value2) {
+    public static boolean compareDouble(final Double value1, final Double value2) {
         if (null == value2) {
             return false;
         }

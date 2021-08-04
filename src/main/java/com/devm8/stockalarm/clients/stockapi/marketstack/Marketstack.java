@@ -20,12 +20,12 @@ public class Marketstack implements ClientStrategy {
     }
 
     @Override
-    public Double getPrice(String symbol) {
+    public Double getPrice(final String symbol) {
         return 0d;
     }
 
     @Override
-    public Map<String, String> getPrices(List<String> symbols) {
+    public Map<String, String> getPrices(final List<String> symbols) {
         final JSONObject jsonObject = getWebClient(url)
                 .get().uri(uriBuilder -> uriBuilder
                         .queryParam("limit", 1)
@@ -37,13 +37,13 @@ public class Marketstack implements ClientStrategy {
         return parseCurrentPrice(jsonObject, symbols);
     }
 
-    private Map<String, String>  parseCurrentPrice(JSONObject jsonObject, List<String> symbols) {
+    private Map<String, String> parseCurrentPrice(final JSONObject jsonObject, final List<String> symbols) {
         // TODO
         return null;
     }
 
-    private String concatSymbols(List<String> symbols) {
-        return String.join( ",", symbols);
+    private String concatSymbols(final List<String> symbols) {
+        return String.join(",", symbols);
     }
 
 }
