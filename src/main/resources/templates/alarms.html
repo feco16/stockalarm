@@ -16,10 +16,10 @@
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/user}">Stocks</a>
+                <a class="nav-link" th:href="@{/templates/user}">Stocks</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" th:href="@{/user/alarms}">Alarms <span class="sr-only">(current)</span></a>
+                <a class="nav-link" th:href="@{/alarms}">Alarms <span class="sr-only">(current)</span></a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
@@ -29,11 +29,11 @@
     </div>
 </nav>
 
-<a th:href="@{/user/alarms}">Refresh</a>
+<a th:href="@{/alarms}">Refresh</a>
 
 <br>
 
-<form th:action="@{/user/alarm}" th:method="post">
+<form th:action="@{/alarms}" th:method="post">
     <lable>Alarm Name</lable>
     <input type="text" id="alarmName" name="alarmName">
 
@@ -76,10 +76,10 @@
         </td>
         <td><span th:text="${alarm.status} ? 'Active' : 'Inactive'"> Status </span></td>
         <td>
-            <a th:href="@{/user/alarms/delete/{id}(id=${alarm.alarmUUID})}"> Delete</a>
+            <a th:href="@{/alarms/delete/{id}(id=${alarm.alarmUUID})}"> Delete</a>
         </td>
         <td>
-            <form th:action="@{/user/alarms/update}" method="post">
+            <form th:action="@{/alarms/update}" method="post">
                 <input type="hidden" id="alarmNameUpdate" name="alarmName" th:value="${alarm.alarmName}"/>
                 <input type="submit" value="Update"/>
             </form>
