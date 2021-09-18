@@ -13,9 +13,10 @@ import stockalarm.AlarmClient;
 import stockalarm.to.AlarmDTO;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
-@RequestMapping
+@RequestMapping("/user")
 @RequiredArgsConstructor
 @Slf4j
 public class AlarmController {
@@ -23,10 +24,12 @@ public class AlarmController {
     private final AlarmClient alarmClient;
 
     @GetMapping("/alarms")
-    public String userAlarms(final Model model, final Principal principal) {
+    public String userAlarms(final Model model) {
+        final List<AlarmDTO> alarms = alarmClient.getAlarmsByUser("");
 //        model.addAttribute("alarms", alarmClient.getAlarmsByUser(principal.getName()));
+        model.addAttribute("alarms", alarms);
         model.addAttribute("alarmUpdate", new AlarmDTO());
-        return "/alarms";
+        return "user/alarms";
     }
 
     @PostMapping("/alarms")
@@ -34,7 +37,7 @@ public class AlarmController {
         log.info("Create alarm: {}", alarmDTO);
         alarmClient.createAlarm(alarmDTO);
 
-        return "redirect:/alarms";
+        return "redirect:/user/alarms";
     }
 
     @GetMapping("/alarms/delete/{id}")
@@ -42,7 +45,7 @@ public class AlarmController {
         log.info("Delete alarm with id: {}", id);
         alarmClient.deleteAlarm(id);
 
-        return "redirect:/alarms";
+        return "redirect:/user/alarms";
 
     }
 

@@ -26,12 +26,6 @@ public class MainController {
         return "login";
     }
 
-    // TODO don't redirect to user without authentication
-    @PostMapping("login")
-    public String loginPost() {
-        return "index";
-    }
-
     @GetMapping("logout")
     public String logout() {
         return "login";

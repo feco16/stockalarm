@@ -14,6 +14,7 @@ import stockalarm.to.AlarmDTO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,11 +27,10 @@ public class AlarmService {
     private final EmailService emailService;
 
     public List<AlarmDTO> getAlarmsByUser(final String email) {
-        final List<AlarmDTO> alarmDTOList = new ArrayList<>();
-        alarmRepository.findAll().stream()
-                .filter(a -> null != a.getStockUser() && a.getStockUser().getEmail().equals(email))
-                .forEach(a -> alarmDTOList.add(alarmDTOConverter.convert(a)));
-        return alarmDTOList;
+        return alarmRepository.findAll().stream()
+//                .filter(a -> null != a.getStockUser() && a.getStockUser().getEmail().equals(email))
+                .map(alarmDTOConverter::convert)
+                .collect(Collectors.toList());
     }
 
     public void createAlarm(final AlarmDTO alarmDTO) {

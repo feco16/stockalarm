@@ -16,10 +16,10 @@
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/templates/user}">Stocks</a>
+                <a class="nav-link" th:href="@{/user/stocks}">Stocks</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" th:href="@{/alarms}">Alarms <span class="sr-only">(current)</span></a>
+                <a class="nav-link" th:href="@{/user/alarms}">Alarms <span class="sr-only">(current)</span></a>
             </li>
         </ul>
 <!--        <form class="form-inline my-2 my-lg-0">-->
@@ -29,11 +29,11 @@
     </div>
 </nav>
 
-<a th:href="@{/alarms}">Refresh</a>
+<a th:href="@{/user/alarms}">Refresh</a>
 
 <br>
 
-<form th:action="@{/alarms}" th:method="post">
+<form th:action="@{/user/alarms}" th:method="post">
     <lable>Alarm Name</lable>
     <input type="text" id="alarmName" name="alarmName">
 

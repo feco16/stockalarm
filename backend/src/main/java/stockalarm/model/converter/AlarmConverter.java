@@ -38,13 +38,13 @@ public class AlarmConverter implements Converter<AlarmDTO, Alarm> {
 //        }
 
         final Stock stock = stockRepository.findBySymbol(source.getSymbol());
-        if (null != stock) {
-            alarm.setStock(stock);
-            alarm.setSavedPrice(stock.getCurrentPrice());
-        } else {
+        if (null == stock) {
             throw new CustomBadRequestException("Can't create alarm for stock symbol " + source.getSymbol()
                     + " . Check available stocks");
+
         }
+        alarm.setStock(stock);
+        alarm.setSavedPrice(stock.getCurrentPrice());
         alarm.setStatus(true);
         return alarm;
     }
