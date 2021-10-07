@@ -19,7 +19,7 @@ dependencies {
 
     // Starters
     implementation 'org.springframework.boot:spring-boot-starter-web'
-//    implementation('org.springframework.boot:spring-boot-starter-security')
+    implementation('org.springframework.boot:spring-boot-starter-security')
     implementation('org.springframework.boot:spring-boot-starter-validation')
 
     // Database
@@ -31,6 +31,10 @@ dependencies {
     // UI
     implementation(group: 'org.webjars', name: 'bootstrap', version: '4.5.3')
     implementation(group: 'org.webjars', name: 'jquery', version: '3.5.1')
+
+    // security
+    implementation("io.jsonwebtoken:jjwt:0.9.1")
+    implementation("javax.xml.bind:jaxb-api")
 
     // API
     implementation('org.springframework.boot:spring-boot-starter-webflux')

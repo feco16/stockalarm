@@ -1,7 +1,6 @@
 package stockalarm.model.converter;
 
 import org.springframework.core.convert.converter.Converter;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import stockalarm.model.entity.StockUser;
 import stockalarm.to.StockUserRegistrationDTO;
@@ -22,7 +21,7 @@ public class StockUserConverter implements Converter<StockUserRegistrationDTO, S
 //        final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 //        stockUser.setPassword(bCryptPasswordEncoder.encode(source.getPassword()));
 
-        //  stockUser.setPassword(source.getPassword());
+        stockUser.setPassword(source.getPassword());
         return stockUser;
     }
 }
