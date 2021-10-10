@@ -12,5 +12,4 @@ public interface AlarmRepository extends CrudRepository<Alarm, Long> {
     @Override
     List<Alarm> findAll();
 
-    Alarm findByAlarmUUID(String uuid);
 }

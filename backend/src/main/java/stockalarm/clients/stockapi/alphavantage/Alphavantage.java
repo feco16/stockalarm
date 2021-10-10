@@ -1,10 +1,11 @@
 package stockalarm.clients.stockapi.alphavantage;
 
-import stockalarm.clients.stockapi.ClientEnum;
-import stockalarm.clients.stockapi.ClientStrategy;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import stockalarm.clients.stockapi.ClientEnum;
+import stockalarm.clients.stockapi.ClientStrategy;
+import stockalarm.utilities.Constants;
 
 import java.util.List;
 import java.util.Map;
@@ -50,7 +51,7 @@ public class Alphavantage implements ClientStrategy {
                         .build())
                 .retrieve().bodyToMono(JSONObject.class).block();
         final AlphavantageResponse response = new AlphavantageResponse(jsonObject, Interval.MIN_1);
-        return response.isSucces() ? response.getCurrentPrice() : 0.;
+        return response.isSucces() ? response.getCurrentPrice() : Constants.DOUBLE_ZERO;
     }
 
     @Override

@@ -3,7 +3,7 @@ package stockalarm.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import stockalarm.Utils;
+import stockalarm.utilities.Utils;
 import stockalarm.clients.stockapi.ClientEnum;
 import stockalarm.clients.stockapi.ClientStrategy;
 import stockalarm.clients.stockapi.ClientStrategyFactory;
@@ -28,12 +28,14 @@ public class StockService {
 
     public void actualizePrices() {
         final ClientStrategy strategy = clientStrategyFactory.findStrategy(ClientEnum.ALPHAVANTAGE);
-        stockRepository.findAll().forEach(stock -> handleStock(stock, strategy));
+        stockRepository.findAll().stream()
+                .filter(stock -> stock.getSymbol() != null)
+                .forEach(stock -> handleStock(stock, strategy));
     }
 
     private void handleStock(final Stock stock, final ClientStrategy strategy) {
-        // Double price = stock.getCurrentPrice() + 1;
         final Double price = strategy.getPrice(stock.getSymbol());
+
         if (Utils.compareDouble(price, stock.getCurrentPrice())) {
             return;
         }

@@ -27,8 +27,7 @@ public class AlarmConverter implements Converter<CreateAlarmDTO, Alarm> {
                 .stockUser(stockUser)
                 .stock(stock)
                 .savedPrice(stock.getCurrentPrice())
-                .status(true)
-                .build();
+                .status(true).build();
     }
 
 }

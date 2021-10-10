@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import stockalarm.StockalarmApplication;
-import stockalarm.Utils;
+import stockalarm.utilities.Utils;
 
 @SpringBootTest(classes = StockalarmApplication.class)
 public class TestUtils {

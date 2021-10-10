@@ -2,7 +2,7 @@ package stockalarm.model.converter;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-import stockalarm.Utils;
+import stockalarm.utilities.Utils;
 import stockalarm.model.entity.Alarm;
 import stockalarm.to.AlarmDTO;
 

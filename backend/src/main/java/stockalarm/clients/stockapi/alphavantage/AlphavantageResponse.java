@@ -1,6 +1,7 @@
 package stockalarm.clients.stockapi.alphavantage;
 
-import stockalarm.Utils;
+import stockalarm.utilities.Constants;
+import stockalarm.utilities.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
 
@@ -38,7 +39,7 @@ public class AlphavantageResponse {
     }
 
     private Double parseCurrentPrice() {
-        double value = 0.;
+        double value = Constants.DOUBLE_ZERO;
         try {
             final Object price = getFirstEntry(timeSeries).get(StockPrice.OPEN.value);
             if (null != price) {

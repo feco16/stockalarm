@@ -14,13 +14,13 @@ import stockalarm.service.AlarmService;
 import stockalarm.to.AlarmDTO;
 import stockalarm.to.AlarmQueryFilter;
 import stockalarm.to.CreateAlarmDTO;
+import stockalarm.to.UpdateAlarmDTO;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
-@RequestMapping
 @RequiredArgsConstructor
 public class AlarmController {
 
@@ -38,9 +38,9 @@ public class AlarmController {
     }
 
     @PutMapping("/alarms/{alarmId}")
-    public void updateAlarm(@NotNull @Valid @RequestBody final CreateAlarmDTO createAlarmDTO,
+    public void updateAlarm(@NotNull @Valid @RequestBody final UpdateAlarmDTO updateAlarmDTO,
                             @PathVariable("alarmId") long alarmId) {
-        alarmService.updateAlarm(createAlarmDTO, alarmId);
+        alarmService.updateAlarm(updateAlarmDTO, alarmId);
     }
 
     @DeleteMapping("/alarms/{alarmId}")

@@ -3,19 +3,15 @@ package stockalarm.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import stockalarm.Utils;
+import stockalarm.utilities.Constants;
+import stockalarm.utilities.Utils;
 import stockalarm.config.email.EmailFormat;
 import stockalarm.model.converter.AlarmConverter;
-import stockalarm.model.converter.AlarmDTOConverter;
 import stockalarm.model.entity.Alarm;
+import stockalarm.model.entity.Stock;
 import stockalarm.repository.AlarmRepository;
-import stockalarm.to.AlarmDTO;
 import stockalarm.to.CreateAlarmDTO;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import stockalarm.to.UpdateAlarmDTO;
 
 @Service
 @RequiredArgsConstructor
@@ -23,20 +19,20 @@ import java.util.stream.Collectors;
 public class AlarmService {
 
     private final AlarmRepository alarmRepository;
-    private final AlarmDTOConverter alarmDTOConverter;
     private final AlarmConverter alarmConverter;
     private final AlarmResourceAccessInternal alarmResourceAccess;
     private final EmailService emailService;
-
-    public List<AlarmDTO> getAlarmsByUser(final String email) {
-        return alarmRepository.findAll().stream()
-//                .filter(a -> null != a.getStockUser() && a.getStockUser().getEmail().equals(email))
-                .map(alarmDTOConverter::convert)
-                .collect(Collectors.toList());
-    }
+    private final StockResourceAccessInternal stockResourceAccessInternal;
 
     public void createAlarm(final CreateAlarmDTO alarmDTO) {
-        alarmRepository.save(Objects.requireNonNull(alarmConverter.convert(alarmDTO)));
+        final Alarm alarm = alarmConverter.convert(alarmDTO);
+        alarmRepository.save(alarm);
+    }
+
+    public void updateAlarm(final UpdateAlarmDTO updateAlarmDTO, final long alarmId) {
+        final Alarm alarm = alarmResourceAccess.getById(alarmId);
+        final Alarm updatedAlarm = buildAlarm(alarm, updateAlarmDTO);
+        alarmRepository.save(updatedAlarm);
     }
 
     public void deleteAlarm(final long id) {
@@ -44,18 +40,20 @@ public class AlarmService {
         alarmRepository.delete(alarm);
     }
 
-    public void updateAlarm(final CreateAlarmDTO createAlarmDTO, final long alarmId) {
-        final Alarm alarm = alarmResourceAccess.getById(alarmId);
-        alarm.setAlarmName(createAlarmDTO.getAlarmName());
-        alarm.setTargetPercentage(createAlarmDTO.getTargetPercentage());
-        // TODO update alarm stock
-        alarmRepository.save(alarm);
-    }
-
     public void updateAllAlarms() {
         alarmRepository.findAll().stream()
                 .filter(Alarm::getStatus)
                 .forEach(this::handleAlarm);
+    }
+
+    private Alarm buildAlarm(final Alarm alarm, final UpdateAlarmDTO updateAlarmDTO) {
+        if (updateAlarmDTO.getStockId() != null) {
+            final Stock stock = stockResourceAccessInternal.getById(updateAlarmDTO.getStockId());
+            alarm.setStock(stock);
+        }
+        alarm.setAlarmName(updateAlarmDTO.getAlarmName());
+        alarm.setTargetPercentage(updateAlarmDTO.getTargetPercentage());
+        return alarm;
     }
 
     private void handleAlarm(final Alarm alarm) {
@@ -78,8 +76,8 @@ public class AlarmService {
     }
 
     private Double calculatePercentage(final Alarm alarm) {
-        if (null == alarm.getStock()) {
-            return 0.;
+        if (alarm.getStock() == null || alarm.getStock().getCurrentPrice() == null || alarm.getSavedPrice() == null) {
+            return Constants.DOUBLE_ZERO;
         }
         return alarm.getStock().getCurrentPrice() * 100 / alarm.getSavedPrice() - 100;
     }

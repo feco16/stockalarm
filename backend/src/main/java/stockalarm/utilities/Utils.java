@@ -1,16 +1,19 @@
-package stockalarm;
+package stockalarm.utilities;
+
+import lombok.extern.slf4j.Slf4j;
 
 import java.text.DecimalFormat;
 
+@Slf4j
 public class Utils {
 
     public static Double formatDouble(final Double value) {
         final DecimalFormat df = new DecimalFormat("#.0000");
-        double formattedDouble = 0.;
+        double formattedDouble = Constants.DOUBLE_ZERO;
         try {
             formattedDouble = Double.parseDouble(df.format(value));
         } catch (IllegalArgumentException e) {
-            System.out.println("Can't format " + value);
+            log.warn("Can't format {}", value);
         }
         return formattedDouble;
     }
