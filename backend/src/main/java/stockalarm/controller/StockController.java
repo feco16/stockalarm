@@ -6,9 +6,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import stockalarm.service.StockResourceAccess;
 import stockalarm.service.StockService;
+import stockalarm.to.CreateStockDTO;
 import stockalarm.to.StockDTO;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
@@ -16,16 +20,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StockController {
 
+    private final StockResourceAccess stockResourceAccess;
     private final StockService stockService;
 
     @PostMapping("/stocks")
-    public void createStock(@RequestBody final StockDTO stockDTO) {
+    public void createStock(@NotNull @Valid @RequestBody final CreateStockDTO stockDTO) {
         stockService.createStock(stockDTO);
     }
 
     @GetMapping("/stocks")
     public List<StockDTO> getAllStocks() {
-        return stockService.getAllStocks();
+        return stockResourceAccess.getAllStocks();
     }
 
 }

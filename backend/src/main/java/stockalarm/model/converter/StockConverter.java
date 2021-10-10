@@ -4,15 +4,15 @@ package stockalarm.model.converter;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import stockalarm.model.entity.Stock;
-import stockalarm.to.StockDTO;
+import stockalarm.to.CreateStockDTO;
 
 import java.util.UUID;
 
 @Component
-public class StockConverter implements Converter<StockDTO, Stock> {
+public class StockConverter implements Converter<CreateStockDTO, Stock> {
 
     @Override
-    public Stock convert(final StockDTO source) {
+    public Stock convert(final CreateStockDTO source) {
         final Stock stock = new Stock();
         stock.setStockUUID(UUID.randomUUID().toString());
         stock.setStockName(source.getStockName());

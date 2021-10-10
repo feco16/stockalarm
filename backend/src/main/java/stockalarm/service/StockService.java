@@ -8,35 +8,22 @@ import stockalarm.clients.stockapi.ClientEnum;
 import stockalarm.clients.stockapi.ClientStrategy;
 import stockalarm.clients.stockapi.ClientStrategyFactory;
 import stockalarm.model.converter.StockConverter;
-import stockalarm.model.converter.StockDTOConverter;
 import stockalarm.model.entity.Stock;
 import stockalarm.repository.StockRepository;
-import stockalarm.to.StockDTO;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import stockalarm.to.CreateStockDTO;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class StockService {
 
-    private final StockRepository stockRepository;
-    private final StockDTOConverter stockDTOConverter;
-    private final StockConverter stockConverter;
     private final ClientStrategyFactory clientStrategyFactory;
+    private final StockRepository stockRepository;
+    private final StockConverter stockConverter;
 
-    public List<StockDTO> getAllStocks() {
-        final List<StockDTO> stockDTOList = new ArrayList<>();
-        stockRepository.findAll().forEach(
-                s -> stockDTOList.add(stockDTOConverter.convert(s))
-        );
-        return stockDTOList;
-    }
-
-    public void createStock(final StockDTO stockDTO) {
-        stockRepository.save(Objects.requireNonNull(stockConverter.convert(stockDTO)));
+    public void createStock(final CreateStockDTO stockDTO) {
+        final Stock stock = stockConverter.convert(stockDTO);
+        stockRepository.save(stock);
     }
 
     public void actualizePrices() {

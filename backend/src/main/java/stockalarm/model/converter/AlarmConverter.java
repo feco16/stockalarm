@@ -1,51 +1,34 @@
 package stockalarm.model.converter;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import stockalarm.exception.CustomBadRequestException;
 import stockalarm.model.entity.Alarm;
 import stockalarm.model.entity.Stock;
 import stockalarm.model.entity.StockUser;
-import stockalarm.repository.StockRepository;
-import stockalarm.repository.UserRepository;
-import stockalarm.to.AlarmDTO;
-
-import java.util.UUID;
+import stockalarm.service.StockResourceAccessInternal;
+import stockalarm.service.UserResourceAccessInternal;
+import stockalarm.to.CreateAlarmDTO;
 
 @Component
-public class AlarmConverter implements Converter<AlarmDTO, Alarm> {
+@RequiredArgsConstructor
+public class AlarmConverter implements Converter<CreateAlarmDTO, Alarm> {
 
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    StockRepository stockRepository;
+    private final StockResourceAccessInternal stockResourceAccessInternal;
+    private final UserResourceAccessInternal userResourceAccessInternal;
 
     @Override
-    public Alarm convert(final AlarmDTO source) {
-        final Alarm alarm = new Alarm();
-        alarm.setAlarmUUID(UUID.randomUUID().toString());
-        alarm.setAlarmName(source.getAlarmName());
-        alarm.setTargetPercentage(source.getTargetPercentage());
-
-//        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        final StockUser stockUser = userRepository.findByEmail(authentication.getName());
-//        if (null != stockUser) {
-//            alarm.setStockUser(stockUser);
-//        }
-
-        final Stock stock = stockRepository.findBySymbol(source.getSymbol());
-        if (null == stock) {
-            throw new CustomBadRequestException("Can't create alarm for stock symbol " + source.getSymbol()
-                    + " . Check available stocks");
-
-        }
-        alarm.setStock(stock);
-        alarm.setSavedPrice(stock.getCurrentPrice());
-        alarm.setStatus(true);
-        return alarm;
+    public Alarm convert(final CreateAlarmDTO source) {
+        final StockUser stockUser = userResourceAccessInternal.getById(source.getUserId());
+        final Stock stock = stockResourceAccessInternal.getById(source.getStockId());
+        return Alarm.builder()
+                .alarmName(source.getAlarmName())
+                .targetPercentage(source.getTargetPercentage())
+                .stockUser(stockUser)
+                .stock(stock)
+                .savedPrice(stock.getCurrentPrice())
+                .status(true)
+                .build();
     }
+
 }

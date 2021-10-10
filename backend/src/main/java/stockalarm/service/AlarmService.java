@@ -10,6 +10,7 @@ import stockalarm.model.converter.AlarmDTOConverter;
 import stockalarm.model.entity.Alarm;
 import stockalarm.repository.AlarmRepository;
 import stockalarm.to.AlarmDTO;
+import stockalarm.to.CreateAlarmDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class AlarmService {
     private final AlarmRepository alarmRepository;
     private final AlarmDTOConverter alarmDTOConverter;
     private final AlarmConverter alarmConverter;
+    private final AlarmResourceAccessInternal alarmResourceAccess;
     private final EmailService emailService;
 
     public List<AlarmDTO> getAlarmsByUser(final String email) {
@@ -33,28 +35,20 @@ public class AlarmService {
                 .collect(Collectors.toList());
     }
 
-    public void createAlarm(final AlarmDTO alarmDTO) {
+    public void createAlarm(final CreateAlarmDTO alarmDTO) {
         alarmRepository.save(Objects.requireNonNull(alarmConverter.convert(alarmDTO)));
     }
 
-    public void deleteAlarm(final String alarmUuid) {
-        final Alarm alarm = alarmRepository.findByAlarmUUID(alarmUuid);
-        if (null == alarm) {
-            log.info("Alarm with id {} does not exists", alarmUuid);
-            return;
-        }
+    public void deleteAlarm(final long id) {
+        final Alarm alarm = alarmResourceAccess.getById(id);
         alarmRepository.delete(alarm);
     }
 
-    public void updateAlarm(final AlarmDTO alarmDTO) {
-        final Alarm alarm = alarmRepository.findByAlarmUUID(alarmDTO.getAlarmUUID());
-        if (null == alarm) {
-            log.info("Alarm with id {} does not exists", alarmDTO.getAlarmUUID());
-            return;
-        }
-        alarm.setAlarmName(alarmDTO.getAlarmName());
-        alarm.setTargetPercentage(alarmDTO.getTargetPercentage());
-        alarm.getStock().setSymbol(alarmDTO.getSymbol());
+    public void updateAlarm(final CreateAlarmDTO createAlarmDTO, final long alarmId) {
+        final Alarm alarm = alarmResourceAccess.getById(alarmId);
+        alarm.setAlarmName(createAlarmDTO.getAlarmName());
+        alarm.setTargetPercentage(createAlarmDTO.getTargetPercentage());
+        // TODO update alarm stock
         alarmRepository.save(alarm);
     }
 

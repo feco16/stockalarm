@@ -1,28 +1,23 @@
 package stockalarm.to;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
+
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-@Builder
-public class AlarmDTO {
+public class CreateAlarmDTO {
 
     private String alarmUUID;
     private String alarmName;
-    private String symbol;
+    @NotNull
+    private Long stockId;
+    @NotNull
+    private Long userId;
     private Double currentPrice;
     private Double savedPrice;
     private Double targetPercentage;
     private Double actualPercentage;
     private Boolean status;
-
 }

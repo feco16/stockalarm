@@ -11,19 +11,18 @@ public class AlarmDTOConverter implements Converter<Alarm, AlarmDTO> {
 
     @Override
     public AlarmDTO convert(final Alarm source) {
-        final AlarmDTO alarmDTO = new AlarmDTO();
-        alarmDTO.setAlarmUUID(source.getAlarmUUID());
-        alarmDTO.setAlarmName(source.getAlarmName());
-        alarmDTO.setTargetPercentage(source.getTargetPercentage());
-        alarmDTO.setActualPercentage(source.getActualPercentage() != null ? source.getActualPercentage() : 0.);
-        alarmDTO.setStatus(source.getStatus());
-        alarmDTO.setSavedPrice(Utils.formatDouble(source.getSavedPrice()));
-
+        final Double savedPrice = Utils.formatDouble(source.getSavedPrice());
+        final AlarmDTO alarmDTO = AlarmDTO.builder()
+                .alarmName(source.getAlarmName())
+                .targetPercentage(source.getTargetPercentage())
+                .actualPercentage(source.getActualPercentage() != null ? source.getActualPercentage() : 0)
+                .status(source.getStatus())
+                .savedPrice(savedPrice)
+                .symbol(source.getStock().getSymbol()).build();
         if (null != source.getStock()) {
             alarmDTO.setSymbol(source.getStock().getSymbol());
             alarmDTO.setCurrentPrice(Utils.formatDouble(source.getStock().getCurrentPrice()));
         }
-
         return alarmDTO;
     }
 }
