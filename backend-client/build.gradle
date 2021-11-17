@@ -1,11 +1,11 @@
 plugins {
-    id 'org.springframework.boot' version '2.5.3'
+    id 'org.springframework.boot' version '2.5.6'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'checkstyle'
     id 'java'
 }
 
-group = 'com.devm8'
+group = 'stockalarm'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
@@ -31,20 +31,10 @@ dependencies {
 
     // tools
     implementation('com.googlecode.json-simple:json-simple:1.1.1')
-    implementation('org.springframework.boot:spring-boot-starter-mail:2.2.5.RELEASE')
-    implementation('org.projectlombok:lombok')
+    implementation('org.projectlombok:lombok:1.18.22')
 
     annotationProcessor 'org.projectlombok:lombok'
 
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-
-
-    // test
-    testImplementation('org.springframework.boot:spring-boot-starter-test')
-    testImplementation('org.junit.jupiter:junit-jupiter-api:5.3.1')
-    testImplementation('org.junit.jupiter:junit-jupiter-engine:5.3.1')
-    testImplementation('com.squareup.okhttp3:mockwebserver:4.0.1')
-    testImplementation('com.squareup.okhttp3:okhttp:4.0.1')
 }
 
 test {

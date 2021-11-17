@@ -14,7 +14,5 @@ public class StockUserRegistrationDTO {
     private String email;
     @NotNull
     private String password;
-    @NotNull
-    private String confirmPassword;
 
 }

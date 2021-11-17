@@ -40,6 +40,13 @@ spring:
 # Required for Postgres
 #spring.flyway.schemas=public
 
+# Keycloak configurations
+
+keycloak:
+  auth-server-url: http://localhost:8180/auth
+  realm: SpringBootKeycloak
+  resource: login-app
+  public-client: true
 
 ### Custom configurations
 
@@ -48,7 +55,7 @@ spring:
 #check stock interval in ms
 stock:
   check:
-    interval: ${STOCK_CHECK_INTERVAL:30000}
+    interval: ${STOCK_CHECK_INTERVAL:300000}
 
 # Email
 email:

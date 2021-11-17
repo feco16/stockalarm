@@ -15,7 +15,7 @@ public class PriceService {
     private final StockService stockService;
     private final AlarmService alarmService;
 
-    @Scheduled(fixedRateString = "${stock.check.interval}", initialDelay = 3000)
+    @Scheduled(fixedRateString = "${stock.check.interval}", initialDelay = 300000)
     public void schedulePriceCheck() {
         log.info("Updating prices and alarms at {}", Instant.now());
         stockService.actualizePrices();

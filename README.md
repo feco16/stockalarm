@@ -5,5 +5,6 @@ receive price changes alarms when the Stock price changes reach their defined
 thresholds.
 
 ### Requirements
-- Java 8+
+- Java 11+
 - Postgres OR MariaDB
+- Keycloak
