@@ -1,4 +1,4 @@
-package stockalarm.service;
+package stockalarm.service.alarm;
 
 import stockalarm.to.AlarmDTO;
 import stockalarm.to.AlarmQueryFilter;

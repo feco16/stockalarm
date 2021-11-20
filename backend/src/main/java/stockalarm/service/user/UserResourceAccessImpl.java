@@ -1,4 +1,4 @@
-package stockalarm.service;
+package stockalarm.service.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;

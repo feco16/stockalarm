@@ -1,4 +1,4 @@
-package stockalarm.service;
+package stockalarm.service.user;
 
 import stockalarm.model.entity.StockUser;
 

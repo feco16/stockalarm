@@ -1,0 +1,48 @@
+{
+  "realm": "stockalarm",
+  "enabled": true,
+  "registrationAllowed": true,
+  "users" : [
+    {
+      "username" : "user1",
+      "enabled": true,
+      "email" : "user1@stockalarm.com",
+      "firstName": "User1",
+      "lastName": "User",
+      "credentials" : [
+        { "type" : "password",
+          "value" : "password" }
+      ],
+      "realmRoles": [ "user" ],
+      "clientRoles": {
+        "account": ["view-profile", "manage-account"]
+      }
+    }
+  ],
+  "roles" : {
+    "realm" : [
+      {
+        "name": "user",
+        "description": "User privileges"
+      },
+      {
+        "name": "admin",
+        "description": "Administrator privileges"
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "stockalarm-client",
+      "enabled": true,
+      "publicClient": true,
+      "directAccessGrantsEnabled": true,
+      "redirectUris": [
+        "*"
+      ],
+      "webOrigins": [
+        "*"
+      ]
+    }
+  ]
+}

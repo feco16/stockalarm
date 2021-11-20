@@ -2,15 +2,13 @@ package stockalarm.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import stockalarm.service.AlarmResourceAccess;
-import stockalarm.service.AlarmService;
+import stockalarm.service.alarm.AlarmResourceAccess;
+import stockalarm.service.alarm.AlarmService;
 import stockalarm.to.AlarmDTO;
 import stockalarm.to.AlarmQueryFilter;
 import stockalarm.to.CreateAlarmDTO;

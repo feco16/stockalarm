@@ -14,6 +14,7 @@ import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableWebSecurity
@@ -48,7 +49,9 @@ public class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter 
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/stocks", "/users", "/alarms")
+                .antMatchers("/users")
+                .permitAll()
+                .antMatchers("/stocks", "/alarms")
                 .hasRole("user")
                 .anyRequest()
                 .permitAll();

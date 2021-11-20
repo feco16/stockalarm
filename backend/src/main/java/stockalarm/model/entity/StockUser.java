@@ -11,10 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "stock_user")
 @Getter
 @Setter
+@Entity
+@Table(name = "stock_user")
 @ToString
 public class StockUser {
 

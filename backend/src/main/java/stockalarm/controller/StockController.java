@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import stockalarm.service.StockResourceAccess;
-import stockalarm.service.StockService;
+import stockalarm.service.stock.StockResourceAccess;
+import stockalarm.service.stock.StockService;
 import stockalarm.to.CreateStockDTO;
 import stockalarm.to.StockDTO;
 

@@ -2,4 +2,5 @@ rootProject.name = 'stockalarm'
 include 'backend'
 include 'frontend'
 include 'backend-client'
+include 'keycloak'
 

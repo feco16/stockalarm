@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 import stockalarm.model.entity.Alarm;
 import stockalarm.model.entity.Stock;
 import stockalarm.model.entity.StockUser;
-import stockalarm.service.StockResourceAccessInternal;
-import stockalarm.service.UserResourceAccessInternal;
+import stockalarm.service.stock.StockResourceAccessInternal;
+import stockalarm.service.user.UserResourceAccessInternal;
 import stockalarm.to.CreateAlarmDTO;
 
 @Component
@@ -19,7 +19,8 @@ public class AlarmConverter implements Converter<CreateAlarmDTO, Alarm> {
 
     @Override
     public Alarm convert(final CreateAlarmDTO source) {
-        final StockUser stockUser = userResourceAccessInternal.getById(source.getUserId());
+        final StockUser stockUser = userResourceAccessInternal.
+                getById(source.getUserId());
         final Stock stock = stockResourceAccessInternal.getById(source.getStockId());
         return Alarm.builder()
                 .alarmName(source.getAlarmName())

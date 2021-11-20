@@ -1,8 +1,10 @@
-package stockalarm.service;
+package stockalarm.service.alarm;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import stockalarm.service.EmailService;
+import stockalarm.service.stock.StockResourceAccessInternal;
 import stockalarm.utilities.Constants;
 import stockalarm.utilities.Utils;
 import stockalarm.config.email.EmailFormat;

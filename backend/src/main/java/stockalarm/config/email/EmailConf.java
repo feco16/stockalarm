@@ -11,10 +11,10 @@ import java.util.Properties;
 @Configuration
 public class EmailConf {
 
-    @Value("${email.from.address}")
+    @Value("${stockalarm.email.from.address}")
     private String emailAddress;
 
-    @Value("${email.password}")
+    @Value("${stockalarm.email.password}")
     private String password;
 
     @Bean("gmail")

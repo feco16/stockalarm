@@ -1,4 +1,4 @@
-package stockalarm.service;
+package stockalarm.service.alarm;
 
 import stockalarm.model.entity.Alarm;
 

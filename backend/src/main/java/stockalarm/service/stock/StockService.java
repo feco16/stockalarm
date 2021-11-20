@@ -1,4 +1,4 @@
-package stockalarm.service;
+package stockalarm.service.stock;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,9 +12,9 @@ import stockalarm.model.entity.Stock;
 import stockalarm.repository.StockRepository;
 import stockalarm.to.CreateStockDTO;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class StockService {
 
     private final ClientStrategyFactory clientStrategyFactory;

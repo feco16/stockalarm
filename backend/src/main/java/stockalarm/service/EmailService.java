@@ -18,10 +18,10 @@ public class EmailService {
     @Qualifier("gmail")
     private final JavaMailSender javaMailSender;
 
-    @Value("${email.is.enabled}")
+    @Value("${stockalarm.email.is.enabled}")
     private Boolean isEnabled;
 
-    @Value("${email.from.address}")
+    @Value("${stockalarm.email.from.address}")
     private String emailAddress;
 
     public void handleMail(final EmailFormat emailFormat) {

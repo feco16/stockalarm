@@ -1,4 +1,3 @@
-
 # General
 server:
   error:
@@ -44,23 +43,29 @@ spring:
 
 keycloak:
   auth-server-url: http://localhost:8180/auth
-  realm: SpringBootKeycloak
-  resource: login-app
+  realm: stockalarm
+  resource: stockalarm-client
   public-client: true
 
 ### Custom configurations
 
-# Stock
+stockalarm:
+  # Stock
 
-#check stock interval in ms
-stock:
-  check:
-    interval: ${STOCK_CHECK_INTERVAL:300000}
+  #check stock interval in ms
+  stock:
+    check:
+      interval: ${STOCK_CHECK_INTERVAL:300000}
 
-# Email
-email:
-  is:
-    enabled: 'false'
-  from:
-    address: ferenc.dev.1@gmail.com
-  password: 5mJdV\TN
+  # Email
+  email:
+    is:
+      enabled: 'false'
+    from:
+      address: ferenc.dev.1@gmail.com
+    password: 5mJdV\TN
+
+# Keycloak custom values
+  keycloak:
+    username: user1
+    password: password

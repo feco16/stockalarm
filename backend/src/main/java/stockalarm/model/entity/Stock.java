@@ -2,7 +2,6 @@ package stockalarm.model.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,11 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "stock")
 @Getter
 @Setter
-@ToString
+@Entity
+@Table(name = "stock")
 public class Stock {
 
     @Id
