@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.5.6'
+    id 'org.springframework.boot' version '2.6.1'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'checkstyle'
     id 'java'
@@ -26,7 +26,7 @@ dependencies {
 //	implementation('org.postgresql:postgresql')
     implementation('org.mariadb.jdbc:mariadb-java-client:2.7.3')
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')
-    implementation("org.flywaydb:flyway-core:8.0.2")
+    implementation("org.flywaydb:flyway-core:8.1.0")
 
     // UI
     implementation(group: 'org.webjars', name: 'bootstrap', version: '4.5.3')

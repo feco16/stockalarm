@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableWebSecurity
-@ComponentScan(basePackageClasses = KeycloakSecurityComponents.class)
+@ComponentScan(basePackageClasses = KeycloakSpringBootConfigResolver.class)
 public class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter {
 
     @Override
